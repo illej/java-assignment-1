@@ -25,10 +25,10 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 	
 	private void setCell(MyPoint where, Wall wall, String flag) {
-		List<Cell> rowCopy = level.get(where.down());
-		Cell cellCopy = rowCopy.get(where.across());
 		int rowIndex = where.down();
 		int cellIndex = where.across();
+		List<Cell> rowCopy = level.get(rowIndex);
+		Cell cellCopy = rowCopy.get(cellIndex);
 		
 		if (flag == "top") {
 			cellCopy.top = wall;
@@ -41,10 +41,10 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 	
 	private void setCell(MyPoint where, Actor actor) {
-		List<Cell> rowCopy = level.get(where.down());
-		Cell cellCopy = rowCopy.get(where.across());
 		int rowIndex = where.down();
 		int cellIndex = where.across();
+		List<Cell> rowCopy = level.get(rowIndex);
+		Cell cellCopy = rowCopy.get(cellIndex);
 		
 		cellCopy.actor = actor;
 		
@@ -53,9 +53,6 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 	
 	private void build() {
-		//assertNotNull(this.depth);
-		//assertNotNull(this.width);
-		
 		for (int i = 0; i < this.depth; i++) {
 			List<Cell> row = new ArrayList<Cell>();
 			for (int j = 0; j < this.width; j++) {
@@ -69,7 +66,7 @@ public class Game implements Playable, Loadable, Saveable {
 	 * Currently only finds first occurrence..
 	 * TODO: ensure only ONE occurrence?
 	 */
-	private MyPoint scanLevel(Actor actor) {
+	private MyPoint findActor(Actor actor) {
 		MyPoint result = null;
 		
 		for (int i = 0; i < this.depth; i++) {
@@ -125,6 +122,7 @@ public class Game implements Playable, Loadable, Saveable {
 		} else if (theseus.down() < minotaur.down()) {
 			result = Direction.UP;
 		}
+		
 		return result;
 	}
 	
@@ -177,17 +175,17 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public MyPoint wheresTheseus() {
-		return this.scanLevel(Actor.THESEUS);
+		return this.findActor(Actor.THESEUS);
 	}
 
 	@Override
 	public MyPoint wheresMinotaur() {
-		return this.scanLevel(Actor.MINOTAUR);
+		return this.findActor(Actor.MINOTAUR);
 	}
 
 	@Override
 	public MyPoint wheresExit() {
-		return this.scanLevel(Actor.EXIT);
+		return this.findActor(Actor.EXIT);
 	}
 
 	/*
@@ -278,7 +276,7 @@ public class Game implements Playable, Loadable, Saveable {
 	public void moveMinotaur() {
 		MyPoint theseusAt = this.wheresTheseus();
 		MyPoint minotaurAt = this.wheresMinotaur();
-		//MyPoint destination;
+		MyPoint destination;
 		
 		/*
 		 * 	if SHOULD move LEFT / RIGHT
@@ -305,33 +303,30 @@ public class Game implements Playable, Loadable, Saveable {
 //			// TODO: figure out a way to try vertical after horizontal fails?
 //		}
 		
-		// NEW - modified
+		// NEW - modified - WORKS!!
 		Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
 		Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
 		
-		System.out.println(horizDir);
-		System.out.println(vertDir);
-		
-		if (horizDir != null) {
-			MyPoint destination =  new DefaultPoint(minotaurAt.across() + horizDir.xAdjust,
-													minotaurAt.down() + horizDir.yAdjust);
-			if (!this.isBlocked(horizDir, minotaurAt, destination)) {
-				this.setCell(minotaurAt, Actor.NONE);
-				this.addMinotaur(destination);
-			} else {
-				System.out.println("blocked horizontally! >:(");
-			}
-		} 
-		if (vertDir != null) {
-			MyPoint destination =  new DefaultPoint(minotaurAt.across() + vertDir.xAdjust,
-													minotaurAt.down() + vertDir.yAdjust);
-			if (!this.isBlocked(vertDir, minotaurAt, destination)) {
-				this.setCell(minotaurAt, Actor.NONE);
-				this.addMinotaur(destination);
-			} else {
-				System.out.println("blocked vertically! >:(");
-			}
+		if (horizDir != null
+				&& !this.isBlocked(
+						horizDir,
+						minotaurAt,
+						destination =  new DefaultPoint(
+								minotaurAt.across() + horizDir.xAdjust,
+								minotaurAt.down() + horizDir.yAdjust))) {
+			this.setCell(minotaurAt, Actor.NONE);
+			this.addMinotaur(destination);			
+		} else if (vertDir != null
+				&& !this.isBlocked(
+						vertDir,
+						minotaurAt,
+						destination =  new DefaultPoint(
+								minotaurAt.across() + vertDir.xAdjust,
+								minotaurAt.down() + vertDir.yAdjust))) {
+			this.setCell(minotaurAt, Actor.NONE);
+			this.addMinotaur(destination);
 		}
+		
 			
 		// OLD but WORKING
 //		if (theseusAt.across() > minotaurAt.across()
