@@ -140,6 +140,15 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 
+	// TODO: Move to CONTROLLER?
+	private boolean winState() {
+		boolean result = false;
+		if (this.wheresTheseus() == this.wheresExit()) {
+			result = true;
+		}
+		return result;
+	}
+	
 	/*
 	 * <<Interface>> Saveable
 	 */
@@ -233,27 +242,19 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 
 	/*
-	 * <<Interface>> Game
+	 * <<Interface>> Playable
 	 */
 
-	// TODO: Move to CONTROLLER?
-	private boolean winState() {
-		boolean result = false;
-		if (this.wheresTheseus() == this.wheresExit()) {
-			result = true;
-		}
-		return result;
-	}
-
 	/*
-	 * NEW_FEATURE [20/20] Tests passing
+	 * [20/20] Tests passing
 	 */
 	@Override
 	public void moveTheseus(Direction direction) {
 		MyPoint current = this.wheresTheseus();
-		MyPoint destination = new DefaultPoint(
-							current.across() + direction.xAdjust,
-							current.down() + direction.yAdjust);
+		MyPoint destination = 
+				new DefaultPoint(
+						current.across() + direction.xAdjust,
+						current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
 			this.setCell(current, Actor.NONE);
@@ -277,8 +278,8 @@ public class Game implements Playable, Loadable, Saveable {
 						horizDir,
 						minotaurAt,
 						destination = new DefaultPoint(
-								minotaurAt.across() + horizDir.xAdjust,
-								minotaurAt.down() + horizDir.yAdjust))) {
+							minotaurAt.across() + horizDir.xAdjust,
+							minotaurAt.down() + horizDir.yAdjust))) {
 			this.setCell(minotaurAt, Actor.NONE);
 			this.addMinotaur(destination);
 		} else if (vertDir != null
@@ -286,8 +287,8 @@ public class Game implements Playable, Loadable, Saveable {
 						vertDir, 
 						minotaurAt,
 						destination = new DefaultPoint(
-								minotaurAt.across() + vertDir.xAdjust,
-								minotaurAt.down() + vertDir.yAdjust))) {
+							minotaurAt.across() + vertDir.xAdjust,
+							minotaurAt.down() + vertDir.yAdjust))) {
 			this.setCell(minotaurAt, Actor.NONE);
 			this.addMinotaur(destination);
 		}
