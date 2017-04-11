@@ -1,4 +1,4 @@
-package nz.ac.ara.ayreye.theseusandtheminotaur.v5;
+package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public enum Direction implements Runnable {
 

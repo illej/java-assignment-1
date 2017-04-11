@@ -1,7 +1,6 @@
-package nz.ac.ara.ayreye.theseusandtheminotaur.v5;
+package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public interface Saveable {
-	
 	int getWidthAcross();
 	int getDepthDown();
 	Wall whatsAbove(MyPoint where);
@@ -9,5 +8,4 @@ public interface Saveable {
 	MyPoint wheresTheseus();
 	MyPoint wheresMinotaur();
 	MyPoint wheresExit();
-	
 }

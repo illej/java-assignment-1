@@ -1,4 +1,4 @@
-package nz.ac.ara.ayreye.theseusandtheminotaur.v5;
+package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import static org.junit.Assert.*;
 import org.junit.*;
@@ -9,7 +9,7 @@ public class GameTests {
 	public static Loadable gameLoader;
 	public static Saveable gameSaver;
 	
-	@Before // could just use 'Before' and remove tests
+	@Before // Run before every test
 	public void setUp() {
 		game = new Game();
 		gameLoader = (Loadable)game;
@@ -21,7 +21,9 @@ public class GameTests {
 
 		/*
 		 * Set basic boundary
+		 *		5x5 playable space
 		 */
+		
 		for (int i = 0; i < gameSaver.getWidthAcross(); i++) {
 			MyPoint point = new DefaultPoint(i, 0);
 			gameLoader.addWallAbove(point);
@@ -38,41 +40,6 @@ public class GameTests {
 			MyPoint point = new DefaultPoint(gameSaver.getWidthAcross() - 1, l);
 			gameLoader.addWallLeft(point);
 		}
-		
-		/*
-		 * Test 1
-		 */
-//		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
-//			String row = "";
-//			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-//				MyPoint where = new DefaultPoint(j, i);
-//				Wall top = gameSaver.whatsAbove(where);
-//				Wall left = gameSaver.whatsLeft(where);
-//				row += "{left:" + left + ", top:" + top + "} ";
-//			}
-//			System.out.println(row);
-//		}
-		
-		/*
-		 * Test 2
-		 */
-//		gameLoader.addTheseus(new DefaultPoint(1, 4));
-//		gameLoader.addMinotaur(new DefaultPoint(3, 3));
-//		System.out.println("th:" + gameSaver.wheresTheseus().across()
-//							+ ", "
-//							+ gameSaver.wheresTheseus().down());
-//		System.out.println("min:" + gameSaver.wheresMinotaur().across()
-//				+ ", "
-//				+ gameSaver.wheresMinotaur().down());
-//		//game.moveTheseus(Direction.RIGHT);
-//		game.moveMinotaur();
-//		game.moveMinotaur();
-//		System.out.println("th:" + gameSaver.wheresTheseus().across()
-//							+ ", "
-//							+ gameSaver.wheresTheseus().down());
-//		System.out.println("min:" + gameSaver.wheresMinotaur().across()
-//				+ ", "
-//				+ gameSaver.wheresMinotaur().down());
 	}
 	
 	/*
@@ -1177,4 +1144,336 @@ public class GameTests {
 		assertEquals(expected.down(), actual.down());
 	}
 	
+	/*
+	 * moveTHESEUS tests
+	 */
+	
+	// 1
+	@Test
+	public void moveTheseus_up_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		
+		game.moveTheseus(Direction.UP);
+		
+		MyPoint expected = new DefaultPoint(3, 2);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 2
+	@Test
+	public void moveTheseus_right_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		
+		game.moveTheseus(Direction.RIGHT);
+		
+		MyPoint expected = new DefaultPoint(4, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 3
+	@Test
+	public void moveTheseus_down_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		
+		game.moveTheseus(Direction.DOWN);
+		
+		MyPoint expected = new DefaultPoint(3, 4);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 4
+	@Test
+	public void moveTheseus_left_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		
+		game.moveTheseus(Direction.LEFT);
+		
+		MyPoint expected = new DefaultPoint(2, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 5
+	@Test
+	public void moveTheseus_up_wallAbove_fail() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallTop = new DefaultPoint(3, 3);
+		gameLoader.addWallAbove(wallTop);
+		
+		game.moveTheseus(Direction.UP);
+		
+		MyPoint expected = new DefaultPoint(3, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 6
+	@Test
+	public void moveTheseus_up_wallLeft_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallLeft = new DefaultPoint(3, 3);
+		gameLoader.addWallLeft(wallLeft);
+		
+		game.moveTheseus(Direction.UP);
+		
+		MyPoint expected = new DefaultPoint(3, 2);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 7
+	@Test
+	public void moveTheseus_up_wallRight_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallRight = new DefaultPoint(4, 3);
+		gameLoader.addWallLeft(wallRight);
+		
+		game.moveTheseus(Direction.UP);
+		
+		MyPoint expected = new DefaultPoint(3, 2);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 8
+	@Test
+	public void moveTheseus_up_wallDown_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallDown = new DefaultPoint(3, 4);
+		gameLoader.addWallAbove(wallDown);
+		
+		game.moveTheseus(Direction.UP);
+		
+		MyPoint expected = new DefaultPoint(3, 2);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	// 9
+	@Test
+	public void moveTheseus_right_wallAbove_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallTop = new DefaultPoint(3, 3);
+		gameLoader.addWallAbove(wallTop);
+		
+		game.moveTheseus(Direction.RIGHT);
+		
+		MyPoint expected = new DefaultPoint(4, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 10
+	@Test
+	public void moveTheseus_right_wallLeft_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallLeft = new DefaultPoint(3, 3);
+		gameLoader.addWallLeft(wallLeft);
+		
+		game.moveTheseus(Direction.RIGHT);
+		
+		MyPoint expected = new DefaultPoint(4, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 11
+	@Test
+	public void moveTheseus_right_wallRight_fail() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallRight = new DefaultPoint(4, 3);
+		gameLoader.addWallLeft(wallRight);
+		
+		game.moveTheseus(Direction.RIGHT);
+		
+		MyPoint expected = new DefaultPoint(3, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 12
+	@Test
+	public void moveTheseus_right_wallDown_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallDown = new DefaultPoint(3, 4);
+		gameLoader.addWallAbove(wallDown);
+		
+		game.moveTheseus(Direction.RIGHT);
+		
+		MyPoint expected = new DefaultPoint(4, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	// 13
+	@Test
+	public void moveTheseus_down_wallAbove_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallTop = new DefaultPoint(3, 3);
+		gameLoader.addWallAbove(wallTop);
+		
+		game.moveTheseus(Direction.DOWN);
+		
+		MyPoint expected = new DefaultPoint(3, 4);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 14
+	@Test
+	public void moveTheseus_down_wallLeft_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallLeft = new DefaultPoint(3, 3);
+		gameLoader.addWallLeft(wallLeft);
+		
+		game.moveTheseus(Direction.DOWN);
+		
+		MyPoint expected = new DefaultPoint(3, 4);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 15
+	@Test
+	public void moveTheseus_down_wallRight_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallRight = new DefaultPoint(4, 3);
+		gameLoader.addWallLeft(wallRight);
+		
+		game.moveTheseus(Direction.DOWN);
+		
+		MyPoint expected = new DefaultPoint(3, 4);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 16
+	@Test
+	public void moveTheseus_down_wallDown_fail() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallDown = new DefaultPoint(3, 4);
+		gameLoader.addWallAbove(wallDown);
+		
+		game.moveTheseus(Direction.DOWN);
+		
+		MyPoint expected = new DefaultPoint(3, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	// 17
+	@Test
+	public void moveTheseus_left_wallAbove_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallTop = new DefaultPoint(3, 3);
+		gameLoader.addWallAbove(wallTop);
+		
+		game.moveTheseus(Direction.LEFT);
+		
+		MyPoint expected = new DefaultPoint(2, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 18
+	@Test
+	public void moveTheseus_left_wallLeft_fail() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallLeft = new DefaultPoint(3, 3);
+		gameLoader.addWallLeft(wallLeft);
+		
+		game.moveTheseus(Direction.LEFT);
+		
+		MyPoint expected = new DefaultPoint(3, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 19
+	@Test
+	public void moveTheseus_left_wallRight_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallRight = new DefaultPoint(4, 3);
+		gameLoader.addWallLeft(wallRight);
+		
+		game.moveTheseus(Direction.LEFT);
+		
+		MyPoint expected = new DefaultPoint(2, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 20
+	@Test
+	public void moveTheseus_left_wallDown_success() {
+		MyPoint theseusAt = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(theseusAt);
+		MyPoint wallDown = new DefaultPoint(3, 4);
+		gameLoader.addWallAbove(wallDown);
+		
+		game.moveTheseus(Direction.LEFT);
+		
+		MyPoint expected = new DefaultPoint(2, 3);
+		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
 }

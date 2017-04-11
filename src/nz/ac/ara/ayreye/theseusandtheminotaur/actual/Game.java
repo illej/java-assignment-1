@@ -1,13 +1,9 @@
-package nz.ac.ara.ayreye.theseusandtheminotaur.v5;
+package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
 
-/*
- * Rename?
- * Game implements Playable .. (?)
- */
 public class Game implements Playable, Loadable, Saveable {
 
 	protected List<List<Cell>> level = new ArrayList<List<Cell>>();
@@ -65,6 +61,9 @@ public class Game implements Playable, Loadable, Saveable {
 	/*
 	 * Currently only finds first occurrence..
 	 * TODO: ensure only ONE occurrence?
+	 * TODO: Make input parameter generic 
+	 * if ACTOR enum is converted to classes.
+	 * TODO: Rename (to 'find()'?)
 	 */
 	private MyPoint findActor(Actor actor) {
 		MyPoint result = null;
@@ -81,7 +80,7 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 	
-	// [8/8] tests passing
+	// [8/8] Tests passing
 	public boolean isBlocked(Direction direction, MyPoint current, MyPoint destination) {
 		boolean result = false;
 		
@@ -109,7 +108,7 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 	
-	// OLD and WORKING
+	// OLD (unneeded?)
 	public Direction findDirection(MyPoint theseus, MyPoint minotaur) {
 		Direction result = null;
 		
@@ -126,7 +125,6 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 	
-	// NEW and NOT QUITE WORKING
 	public Direction findDirection(MyPoint theseus, MyPoint minotaur, String flag) {
 		Direction result = null;
 		
@@ -245,31 +243,30 @@ public class Game implements Playable, Loadable, Saveable {
 	 * <<Interface>> Game
 	 */
 	
+	// TODO: Move to CONTROLLER?
+	private boolean winState() {
+		boolean result = false;
+		if (this.wheresTheseus() == this.wheresExit()) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/* NEW_FEATURE 
+	 * [20/20] Tests passing
+	 */
 	@Override
 	public void moveTheseus(Direction direction) {
 		MyPoint current = this.wheresTheseus();
 		MyPoint destination = new DefaultPoint(current.across() + direction.xAdjust,
 												current.down() + direction.yAdjust);
-		// TODO: think of a better way!
-		
-		// check for exit
-		if (this.getCell(destination).actor == Actor.EXIT) {
-			// move then finish game
+
+		if (!this.isBlocked(direction, current, destination)) {
+			this.setCell(current, Actor.NONE);
+			this.addTheseus(destination);
+		} else {
+			System.out.println("blocked! ~:(");
 		}
-		// check if blocked
-		else if (direction == Direction.LEFT
-				|| direction == Direction.RIGHT) {
-			if (direction == Direction.LEFT) {
-				if (this.getCell(destination).left == Wall.SOMETHING) {
-					// can't move!
-				}
-			} else if (direction == Direction.RIGHT) {
-				if (this.getCell(current).left == Wall.SOMETHING) {
-					// can't move!
-				}
-			}
-		}
-		// move theseus
 	}
 
 	@Override
@@ -278,32 +275,6 @@ public class Game implements Playable, Loadable, Saveable {
 		MyPoint minotaurAt = this.wheresMinotaur();
 		MyPoint destination;
 		
-		/*
-		 * 	if SHOULD move LEFT / RIGHT
-		 * 		if CAN move
-		 * 			then move LEFT / RIGHT	
-		 * 	else if SHOULD move UP / DOWN
-		 * 		if CAN move
-		 * 			then move UP / DOWN
-		 */
-		
-		/*
-		 * TODO: Maybe a 'checkOrientation' method that performs the comparison
-		 * in the 'if' and calculates the offsets / x(y)adjust??
-		 */
-		// NEW
-//		Direction direction = this.findDirection(theseusAt, minotaurAt, "horizontal");
-//		MyPoint destination =  new DefaultPoint(minotaurAt.across() + direction.xAdjust,
-//												minotaurAt.down() + direction.yAdjust);
-//		if (!this.isBlocked(direction, minotaurAt, destination)) {
-//			this.setCell(minotaurAt, Actor.NONE);
-//			this.addMinotaur(destination);
-//		} else {
-//			System.out.println("blocked! >:(");
-//			// TODO: figure out a way to try vertical after horizontal fails?
-//		}
-		
-		// NEW - modified - WORKS!!
 		Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
 		Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
 		
@@ -326,45 +297,6 @@ public class Game implements Playable, Loadable, Saveable {
 			this.setCell(minotaurAt, Actor.NONE);
 			this.addMinotaur(destination);
 		}
-		
-			
-		// OLD but WORKING
-//		if (theseusAt.across() > minotaurAt.across()
-//				&& !this.isBlocked(Direction.RIGHT,
-//									minotaurAt,
-//									destination = new DefaultPoint(minotaurAt.across() + 1,
-//																minotaurAt.down()))) {
-//			this.setCell(minotaurAt, Actor.NONE);
-//			this.addMinotaur(destination);
-//			System.out.println("going RIGHT!");
-//		}
-//		else if (theseusAt.across() < minotaurAt.across() 
-//				&& !this.isBlocked(Direction.LEFT,
-//									minotaurAt,
-//									destination = new DefaultPoint(minotaurAt.across() - 1,
-//																minotaurAt.down()))) {
-//			this.setCell(minotaurAt, Actor.NONE);
-//			this.addMinotaur(destination);
-//			System.out.println("going LEFT!");
-//		}
-//		else if (theseusAt.down() > minotaurAt.down()
-//				&& !this.isBlocked(Direction.DOWN,
-//									minotaurAt,
-//									destination = new DefaultPoint(minotaurAt.across(),
-//																minotaurAt.down() + 1))) {
-//			this.setCell(minotaurAt, Actor.NONE);
-//			this.addMinotaur(destination);
-//			System.out.println("going DOWN!");
-//		}
-//		else if (theseusAt.down() < minotaurAt.down()
-//				&& !this.isBlocked(Direction.UP,
-//									minotaurAt,
-//									destination = new DefaultPoint(minotaurAt.across(),
-//																minotaurAt.down() - 1))) {
-//			this.setCell(minotaurAt, Actor.NONE);
-//			this.addMinotaur(destination);
-//			System.out.println("going UP!");
-//		}
 	}
 
 }
