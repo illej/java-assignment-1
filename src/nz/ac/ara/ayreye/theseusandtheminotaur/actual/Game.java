@@ -274,29 +274,29 @@ public class Game implements Playable, Loadable, Saveable {
 	public void moveMinotaur() {
 		MyPoint theseusAt = this.wheresTheseus();
 		MyPoint minotaurAt = this.wheresMinotaur();
+		MyPoint destination;
 		
 		Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
 		Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
 		
-		MyPoint horizDest = new DefaultPoint(
-						minotaurAt.across() + horizDir.xAdjust,
-						minotaurAt.down() + horizDir.yAdjust);
-		MyPoint vertDest = new DefaultPoint(
-						minotaurAt.across() + vertDir.xAdjust,
-						minotaurAt.down() + vertDir.yAdjust);
-		
 		if (horizDir != null
-				&& !this.isBlocked(horizDir,
-								minotaurAt,
-								horizDest)) {
+				&& !this.isBlocked(
+						horizDir,
+						minotaurAt,
+						destination = new DefaultPoint(
+								minotaurAt.across() + horizDir.xAdjust,
+								minotaurAt.down() + horizDir.yAdjust))) {
 			this.setCell(minotaurAt, Actor.NONE);
-			this.addMinotaur(horizDest);			
+			this.addMinotaur(destination);			
 		} else if (vertDir != null
-				&& !this.isBlocked(vertDir,
-									minotaurAt,
-									vertDest)) {
+				&& !this.isBlocked(
+						vertDir,
+						minotaurAt,
+						destination = new DefaultPoint(
+								minotaurAt.across() + vertDir.xAdjust,
+								minotaurAt.down() + vertDir.yAdjust))) {
 			this.setCell(minotaurAt, Actor.NONE);
-			this.addMinotaur(vertDest);
+			this.addMinotaur(destination);
 		}
 	}
 
