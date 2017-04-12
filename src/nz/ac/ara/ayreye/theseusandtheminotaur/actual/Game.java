@@ -20,29 +20,13 @@ public class Game implements Playable, Loadable, Saveable {
 		return cell;
 	}
 
-	private void setCell(MyPoint where, Wall wall, String flag) {
+	private void setCellInfo(MyPoint where, Object object, String key) {
 		int rowIndex = where.down();
 		int cellIndex = where.across();
 		List<Cell> rowCopy = level.get(rowIndex);
 		Cell cellCopy = rowCopy.get(cellIndex);
 
-		if (flag == "top") {
-			cellCopy.top = wall;
-		} else if (flag == "left") {
-			cellCopy.left = wall;
-		}
-
-		rowCopy.set(cellIndex, cellCopy);
-		level.set(rowIndex, rowCopy);
-	}
-
-	private void setCell(MyPoint where, Actor actor) {
-		int rowIndex = where.down();
-		int cellIndex = where.across();
-		List<Cell> rowCopy = level.get(rowIndex);
-		Cell cellCopy = rowCopy.get(cellIndex);
-
-		cellCopy.actor = actor;
+		cellCopy.set(key, object);
 
 		rowCopy.set(cellIndex, cellCopy);
 		level.set(rowIndex, rowCopy);
@@ -63,13 +47,13 @@ public class Game implements Playable, Loadable, Saveable {
 	 * TODO: Make input parameter generic if ACTOR enum is converted to classes.
 	 * TODO: Rename (to 'find()'?)
 	 */
-	private MyPoint findActor(Actor actor) {
+	private MyPoint findActor(Object object, String key) {
 		MyPoint result = null;
 
 		for (int i = 0; i < this.depth; i++) {
 			for (int j = 0; j < this.width; j++) {
 				MyPoint here = new DefaultPoint(j, i);
-				if (this.getCell(here).actor == actor) {
+				if (this.getCell(here).get(key) == object) {
 					result = here;
 				}
 			}
@@ -83,19 +67,19 @@ public class Game implements Playable, Loadable, Saveable {
 		boolean result = false;
 
 		if (direction == Direction.LEFT) {
-			if (this.getCell(current).left == Wall.SOMETHING) {
+			if ((Wall)this.getCell(current).get("left") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.RIGHT) {
-			if (this.getCell(destination).left == Wall.SOMETHING) {
+			if ((Wall)this.getCell(destination).get("left") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.UP) {
-			if (this.getCell(current).top == Wall.SOMETHING) {
+			if ((Wall)this.getCell(current).get("top") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.DOWN) {
-			if (this.getCell(destination).top == Wall.SOMETHING) {
+			if ((Wall)this.getCell(destination).get("top") == Wall.SOMETHING) {
 				result = true;
 			}
 		}
@@ -140,15 +124,6 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 
-	// TODO: Move to CONTROLLER?
-	private boolean winState() {
-		boolean result = false;
-		if (this.wheresTheseus() == this.wheresExit()) {
-			result = true;
-		}
-		return result;
-	}
-	
 	/*
 	 * <<Interface>> Saveable
 	 */
@@ -167,27 +142,30 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public Wall whatsAbove(MyPoint where) {
-		return this.getCell(where).top;
+		return (Wall)this.getCell(where).get("top");
 	}
 
 	@Override
 	public Wall whatsLeft(MyPoint where) {
-		return this.getCell(where).left;
+		return (Wall)this.getCell(where).get("left");
 	}
 
 	@Override
 	public MyPoint wheresTheseus() {
-		return this.findActor(Actor.THESEUS);
+		// TODO: Change to 'getCell' ?
+		return this.findActor(Actor.THESEUS, "character");
 	}
 
 	@Override
 	public MyPoint wheresMinotaur() {
-		return this.findActor(Actor.MINOTAUR);
+		// TODO: Change to 'getCell' ?
+		return this.findActor(Actor.MINOTAUR, "character");
 	}
 
 	@Override
 	public MyPoint wheresExit() {
-		return this.findActor(Actor.EXIT);
+		// TODO: Change to 'getCell' ?
+		return this.findActor(Objective.EXIT, "objective");
 	}
 
 	/*
@@ -218,27 +196,29 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public void addWallAbove(MyPoint where) {
-		this.setCell(where, Wall.SOMETHING, "top");
+		this.setCellInfo(where, Wall.SOMETHING, "top");
 	}
 
 	@Override
 	public void addWallLeft(MyPoint where) {
-		this.setCell(where, Wall.SOMETHING, "left");
+		this.setCellInfo(where, Wall.SOMETHING, "left");
 	}
 
 	@Override
 	public void addTheseus(MyPoint where) {
-		this.setCell(where, Actor.THESEUS);
+		// TODO: Change to 'Character base class type'
+		this.setCellInfo(where, Actor.THESEUS, "character");
 	}
 
 	@Override
 	public void addMinotaur(MyPoint where) {
-		this.setCell(where, Actor.MINOTAUR);
+		// TODO: Change to 'Character base class type'
+		this.setCellInfo(where, Actor.MINOTAUR, "character");
 	}
 
 	@Override
 	public void addExit(MyPoint where) {
-		this.setCell(where, Actor.EXIT);
+		this.setCellInfo(where, Objective.EXIT, "objective");
 	}
 
 	/*
@@ -257,7 +237,7 @@ public class Game implements Playable, Loadable, Saveable {
 						current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
-			this.setCell(current, Actor.NONE);
+			this.setCellInfo(current, Actor.NONE, "character");
 			this.addTheseus(destination);
 		} else {
 			System.out.println("blocked! ~:(");
@@ -280,7 +260,7 @@ public class Game implements Playable, Loadable, Saveable {
 						destination = new DefaultPoint(
 							minotaurAt.across() + horizDir.xAdjust,
 							minotaurAt.down() + horizDir.yAdjust))) {
-			this.setCell(minotaurAt, Actor.NONE);
+			this.setCellInfo(minotaurAt, Actor.NONE, "character");
 			this.addMinotaur(destination);
 		} else if (vertDir != null
 				&& !this.isBlocked(
@@ -289,7 +269,7 @@ public class Game implements Playable, Loadable, Saveable {
 						destination = new DefaultPoint(
 							minotaurAt.across() + vertDir.xAdjust,
 							minotaurAt.down() + vertDir.yAdjust))) {
-			this.setCell(minotaurAt, Actor.NONE);
+			this.setCellInfo(minotaurAt, Actor.NONE, "character");
 			this.addMinotaur(destination);
 		}
 	}
