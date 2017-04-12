@@ -10,6 +10,5 @@ public interface Playable {
 	 * TODO: Move to inside GAME?
 	 */
 	boolean isBlocked(Direction dir, MyPoint cur, MyPoint dest);
-	public Direction findDirection(MyPoint theseus, MyPoint minotaur);
 	public Direction findDirection(MyPoint theseus, MyPoint minotaur, String flag);
 }

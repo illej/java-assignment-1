@@ -2,7 +2,7 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 public class Game implements Playable, Loadable, Saveable {
 
@@ -44,10 +44,8 @@ public class Game implements Playable, Loadable, Saveable {
 
 	/*
 	 * Currently only finds first occurrence.. TODO: ensure only ONE occurrence?
-	 * TODO: Make input parameter generic if ACTOR enum is converted to classes.
-	 * TODO: Rename (to 'find()'?)
 	 */
-	private MyPoint findActor(Object object, String key) {
+	private MyPoint findObject(Object object, String key) {
 		MyPoint result = null;
 
 		for (int i = 0; i < this.depth; i++) {
@@ -67,19 +65,19 @@ public class Game implements Playable, Loadable, Saveable {
 		boolean result = false;
 
 		if (direction == Direction.LEFT) {
-			if ((Wall)this.getCell(current).get("left") == Wall.SOMETHING) {
+			if ((Wall) this.getCell(current).get("left") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.RIGHT) {
-			if ((Wall)this.getCell(destination).get("left") == Wall.SOMETHING) {
+			if ((Wall) this.getCell(destination).get("left") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.UP) {
-			if ((Wall)this.getCell(current).get("top") == Wall.SOMETHING) {
+			if ((Wall) this.getCell(current).get("top") == Wall.SOMETHING) {
 				result = true;
 			}
 		} else if (direction == Direction.DOWN) {
-			if ((Wall)this.getCell(destination).get("top") == Wall.SOMETHING) {
+			if ((Wall) this.getCell(destination).get("top") == Wall.SOMETHING) {
 				result = true;
 			}
 		}
@@ -87,23 +85,8 @@ public class Game implements Playable, Loadable, Saveable {
 		return result;
 	}
 
-	// OLD (unneeded?)
-	public Direction findDirection(MyPoint theseus, MyPoint minotaur) {
-		Direction result = null;
-
-		if (theseus.across() > minotaur.across()) {
-			result = Direction.RIGHT;
-		} else if (theseus.across() < minotaur.across()) {
-			result = Direction.LEFT;
-		} else if (theseus.down() > minotaur.down()) {
-			result = Direction.DOWN;
-		} else if (theseus.down() < minotaur.down()) {
-			result = Direction.UP;
-		}
-
-		return result;
-	}
-
+	// [8/8] Tests passing
+	// TODO: Polymorph?
 	public Direction findDirection(MyPoint theseus, MyPoint minotaur, String flag) {
 		Direction result = null;
 
@@ -130,42 +113,40 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public int getWidthAcross() {
-		// assertNotNull(this.width);
-		return this.width;
+		return this.level.get(0).size(); // this.width;
 	}
 
 	@Override
 	public int getDepthDown() {
-		// assertNotNull(this.depth);
-		return this.depth;
+		return this.level.size(); // this.depth;
 	}
 
 	@Override
 	public Wall whatsAbove(MyPoint where) {
-		return (Wall)this.getCell(where).get("top");
+		return (Wall) this.getCell(where).get("top");
 	}
 
 	@Override
 	public Wall whatsLeft(MyPoint where) {
-		return (Wall)this.getCell(where).get("left");
+		return (Wall) this.getCell(where).get("left");
 	}
 
 	@Override
 	public MyPoint wheresTheseus() {
 		// TODO: Change to 'getCell' ?
-		return this.findActor(Actor.THESEUS, "character");
+		return this.findObject(Actor.THESEUS, "character");
 	}
 
 	@Override
 	public MyPoint wheresMinotaur() {
 		// TODO: Change to 'getCell' ?
-		return this.findActor(Actor.MINOTAUR, "character");
+		return this.findObject(Actor.MINOTAUR, "character");
 	}
 
 	@Override
 	public MyPoint wheresExit() {
 		// TODO: Change to 'getCell' ?
-		return this.findActor(Objective.EXIT, "objective");
+		return this.findObject(Objective.EXIT, "objective");
 	}
 
 	/*
@@ -231,10 +212,8 @@ public class Game implements Playable, Loadable, Saveable {
 	@Override
 	public void moveTheseus(Direction direction) {
 		MyPoint current = this.wheresTheseus();
-		MyPoint destination = 
-				new DefaultPoint(
-						current.across() + direction.xAdjust,
-						current.down() + direction.yAdjust);
+		MyPoint destination = new DefaultPoint(current.across() + direction.xAdjust,
+												current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
 			this.setCellInfo(current, Actor.NONE, "character");
@@ -255,11 +234,11 @@ public class Game implements Playable, Loadable, Saveable {
 
 		if (horizDir != null
 				&& !this.isBlocked(
-						horizDir,
+						horizDir, 
 						minotaurAt,
 						destination = new DefaultPoint(
-							minotaurAt.across() + horizDir.xAdjust,
-							minotaurAt.down() + horizDir.yAdjust))) {
+								minotaurAt.across() + horizDir.xAdjust,
+								minotaurAt.down() + horizDir.yAdjust))) {
 			this.setCellInfo(minotaurAt, Actor.NONE, "character");
 			this.addMinotaur(destination);
 		} else if (vertDir != null
@@ -267,8 +246,8 @@ public class Game implements Playable, Loadable, Saveable {
 						vertDir, 
 						minotaurAt,
 						destination = new DefaultPoint(
-							minotaurAt.across() + vertDir.xAdjust,
-							minotaurAt.down() + vertDir.yAdjust))) {
+								minotaurAt.across() + vertDir.xAdjust,
+								minotaurAt.down() + vertDir.yAdjust))) {
 			this.setCellInfo(minotaurAt, Actor.NONE, "character");
 			this.addMinotaur(destination);
 		}

@@ -2,7 +2,7 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public class Minotaur extends Character {
 
-	protected MyPoint where;
+	private MyPoint where;
 	
 	@Override
 	public void setPosition(MyPoint where) {

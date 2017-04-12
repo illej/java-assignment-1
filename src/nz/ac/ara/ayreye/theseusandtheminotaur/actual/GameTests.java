@@ -150,7 +150,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.UP;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "vertical");
 		
 		assertEquals(expected, actual);
 	}
@@ -163,7 +163,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.DOWN;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "vertical");
 		
 		assertEquals(expected, actual);
 	}
@@ -176,7 +176,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -189,7 +189,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -202,7 +202,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -215,7 +215,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -228,7 +228,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -241,7 +241,7 @@ public class GameTests {
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
-		Direction actual = game.findDirection(theseusAt, minotaurAt);
+		Direction actual = game.findDirection(theseusAt, minotaurAt, "horizontal");
 		
 		assertEquals(expected, actual);
 	}
@@ -1275,6 +1275,7 @@ public class GameTests {
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
 	}
+	
 	// 9
 	@Test
 	public void moveTheseus_right_wallAbove_success() {
@@ -1342,6 +1343,7 @@ public class GameTests {
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
 	}
+	
 	// 13
 	@Test
 	public void moveTheseus_down_wallAbove_success() {
@@ -1409,6 +1411,7 @@ public class GameTests {
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
 	}
+	
 	// 17
 	@Test
 	public void moveTheseus_left_wallAbove_success() {
