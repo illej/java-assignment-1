@@ -1,6 +1,6 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
-public enum Direction implements Runnable {
+public enum Direction {
 
 	UP(0, -1),
 	RIGHT(1, 0),
@@ -13,15 +13,6 @@ public enum Direction implements Runnable {
 	private Direction(int x, int y) {
 		xAdjust = x;
 		yAdjust = y;
-	}
-	
-	@Override
-	public String toString(){
-		// only capitalize the first letter
-		String s = super.toString();
-		s =  s.substring(0, 1) + s.substring(1).toLowerCase();
-		s = s + " " + xAdjust + "," + yAdjust;
-		return s;
 	}
 	
 }

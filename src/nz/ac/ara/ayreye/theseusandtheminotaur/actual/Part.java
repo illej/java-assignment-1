@@ -1,5 +1,8 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
-public interface Runnable {
-	public String toString();
+public enum Part {
+	THESEUS,
+	MINOTAUR,
+	EXIT,
+	NONE
 }

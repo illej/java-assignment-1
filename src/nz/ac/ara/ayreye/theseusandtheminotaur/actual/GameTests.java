@@ -27,19 +27,19 @@ public class GameTests {
 		 */
 		
 		for (int i = 0; i < gameSaver.getWidthAcross(); i++) {
-			MyPoint point = new DefaultPoint(i, 0);
+			Point point = new Position(i, 0);
 			gameLoader.addWallAbove(point);
 		}
 		for (int j = 0; j < gameSaver.getDepthDown(); j++) {
-			MyPoint point = new DefaultPoint(0, j);
+			Point point = new Position(0, j);
 			gameLoader.addWallLeft(point);
 		}
 		for (int k = 0; k < gameSaver.getWidthAcross(); k++) {
-			MyPoint point = new DefaultPoint(k, gameSaver.getDepthDown() - 1);
+			Point point = new Position(k, gameSaver.getDepthDown() - 1);
 			gameLoader.addWallAbove(point);
 		}
 		for (int l = 0; l < gameSaver.getDepthDown(); l++) {
-			MyPoint point = new DefaultPoint(gameSaver.getWidthAcross() - 1, l);
+			Point point = new Position(gameSaver.getWidthAcross() - 1, l);
 			gameLoader.addWallLeft(point);
 		}
 	}
@@ -50,10 +50,10 @@ public class GameTests {
 	
 	@Test
 	public void test01_isBlocked_moveUp_true() {
-		MyPoint current = new DefaultPoint(3, 5);
-		MyPoint destination = new DefaultPoint(3, 4);
+		Point current = new Position(3, 5);
+		Point destination = new Position(3, 4);
 		
-		MyPoint wallAt = new DefaultPoint(3, 5);
+		Point wallAt = new Position(3, 5);
 		gameLoader.addWallAbove(wallAt);
 		
 		boolean expected = true;
@@ -63,8 +63,8 @@ public class GameTests {
 	}
 	@Test
 	public void test02_isBlocked_moveUp_false() {
-		MyPoint current = new DefaultPoint(3, 5);
-		MyPoint destination = new DefaultPoint(3, 4);
+		Point current = new Position(3, 5);
+		Point destination = new Position(3, 4);
 		
 		boolean expected = false;
 		boolean actual = game.isBlocked(Direction.UP, current, destination);
@@ -73,10 +73,10 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveRight_true() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(4, 3);
+		Point current = new Position(3, 3);
+		Point destination = new Position(4, 3);
 		
-		MyPoint wallAt = new DefaultPoint(4, 3);
+		Point wallAt = new Position(4, 3);
 		gameLoader.addWallLeft(wallAt);
 		
 		boolean expected = true;
@@ -86,8 +86,8 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveRight_false() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(4, 3);
+		Point current = new Position(3, 3);
+		Point destination = new Position(4, 3);
 		
 		boolean expected = false;
 		boolean actual = game.isBlocked(Direction.RIGHT, current, destination);
@@ -96,10 +96,10 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveDown_true() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(3, 4);
+		Point current = new Position(3, 3);
+		Point destination = new Position(3, 4);
 		
-		MyPoint wallAt = new DefaultPoint(3, 4);
+		Point wallAt = new Position(3, 4);
 		gameLoader.addWallAbove(wallAt);
 		
 		boolean expected = true;
@@ -109,8 +109,8 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveDown_false() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(3, 4);
+		Point current = new Position(3, 3);
+		Point destination = new Position(3, 4);
 		
 		boolean expected = false;
 		boolean actual = game.isBlocked(Direction.DOWN, current, destination);
@@ -119,10 +119,10 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveLeft_true() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(2, 3);
+		Point current = new Position(3, 3);
+		Point destination = new Position(2, 3);
 		
-		MyPoint wallAt = new DefaultPoint(3, 3);
+		Point wallAt = new Position(3, 3);
 		gameLoader.addWallLeft(wallAt);
 		
 		boolean expected = true;
@@ -132,8 +132,8 @@ public class GameTests {
 	}
 	@Test
 	public void isBlocked_moveLeft_false() {
-		MyPoint current = new DefaultPoint(3, 3);
-		MyPoint destination = new DefaultPoint(2, 3);
+		Point current = new Position(3, 3);
+		Point destination = new Position(2, 3);
 		
 		boolean expected = false;
 		boolean actual = game.isBlocked(Direction.LEFT, current, destination);
@@ -145,10 +145,10 @@ public class GameTests {
 	 */
 	@Test
 	public void findDirection_tNorthMSouth_dirUp() {
-		MyPoint theseusAt = new DefaultPoint(3, 0);
+		Point theseusAt = new Position(3, 0);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.UP;
@@ -158,10 +158,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tSouthMNorth_dirDown() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 0);
+		Point minotaurAt = new Position(3, 0);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.DOWN;
@@ -171,10 +171,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tEastMWest_dirRight() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(0, 3);
+		Point minotaurAt = new Position(0, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
@@ -184,10 +184,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tWestMEast_dirLeft() {
-		MyPoint theseusAt = new DefaultPoint(0, 3);
+		Point theseusAt = new Position(0, 3);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
@@ -197,10 +197,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tNorthEast_dirRight() {
-		MyPoint theseusAt = new DefaultPoint(4, 2);
+		Point theseusAt = new Position(4, 2);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
@@ -210,10 +210,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tNorthWest_dirLeft() {
-		MyPoint theseusAt = new DefaultPoint(2, 2);
+		Point theseusAt = new Position(2, 2);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
@@ -223,10 +223,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tSouthEast_dirRight() {
-		MyPoint theseusAt = new DefaultPoint(4, 4);
+		Point theseusAt = new Position(4, 4);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.RIGHT;
@@ -236,10 +236,10 @@ public class GameTests {
 	}
 	@Test
 	public void findDirection_tSouthWest_dirLeft() {
-		MyPoint theseusAt = new DefaultPoint(2, 4);
+		Point theseusAt = new Position(2, 4);
 		gameLoader.addTheseus(theseusAt);
 		
-		MyPoint minotaurAt = new DefaultPoint(3, 3);
+		Point minotaurAt = new Position(3, 3);
 		gameLoader.addMinotaur(minotaurAt);
 		
 		Direction expected = Direction.LEFT;
@@ -251,17 +251,17 @@ public class GameTests {
 	// 1. up 1
 	@Test
 	public void moveMinotaurUp_oneSpaceBetween_upTwo_theseusDead() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 1);
+		Point whereThes = new Position(3, 1);
 		gameLoader.addTheseus(whereThes);
 		
 		// Not sure if 2 calls?
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		// Find better solution??
 		assertEquals(expected.across(), actual.across());
@@ -271,16 +271,16 @@ public class GameTests {
 	// 2. up 2
 	@Test
 	public void moveMinotaurUp_twoSpacesBetween_upTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 0);
+		Point whereThes = new Position(3, 0);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -289,16 +289,16 @@ public class GameTests {
 	// 3. up 3
 	@Test
 	public void moveMinotaurUp_threeSpacesBetween_upTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 4);
+		Point whereMin = new Position(3, 4);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 0);
+		Point whereThes = new Position(3, 0);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -307,16 +307,16 @@ public class GameTests {
 	// 4. right 1
 	@Test
 	public void moveMinotaurRight_oneSpaceBetween_rightTwo_theseusDead() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(5, 3);
+		Point whereThes = new Position(5, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(5, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(5, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -325,16 +325,16 @@ public class GameTests {
 	// 5. right 2
 	@Test
 	public void moveMinotaurRight_twoSpacesBetween_rightTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(6, 3);
+		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(5, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(5, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -343,16 +343,16 @@ public class GameTests {
 	// 5. a) right 2 
 	@Test
 	public void moveMinotaur_rightTwice_0_5() {
-		MyPoint whereMin = new DefaultPoint(0, 5);
+		Point whereMin = new Position(0, 5);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 4);
+		Point whereThes = new Position(2, 4);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 5);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 5);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -361,16 +361,16 @@ public class GameTests {
 	// 6. right 3
 	@Test
 	public void moveMinotaurRight_threeSpacesBetween_rightTwo() {
-		MyPoint whereMin = new DefaultPoint(2, 3);
+		Point whereMin = new Position(2, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(6, 3);
+		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -379,16 +379,16 @@ public class GameTests {
 	// 7. down 1
 	@Test
 	public void moveMinotaurDown_oneSpaceBetween_downTwo_theseusDead() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 5);
+		Point whereThes = new Position(3, 5);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 5);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 5);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -397,16 +397,16 @@ public class GameTests {
 	// 8. down 2
 	@Test
 	public void moveMinotaurDown_twoSpacesBetween_downTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 6);
+		Point whereThes = new Position(3, 6);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 5);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 5);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -415,16 +415,16 @@ public class GameTests {
 	// 9. down 3
 	@Test
 	public void moveMinotaurDown_threeSpacesBetween_downTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 2);
+		Point whereMin = new Position(3, 2);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 6);
+		Point whereThes = new Position(3, 6);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -433,16 +433,16 @@ public class GameTests {
 	// 10. left 1
 	@Test
 	public void moveMinotaurLeft_oneSpaceBetween_leftTwo_theseusDead() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 3);
+		Point whereThes = new Position(1, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -451,16 +451,16 @@ public class GameTests {
 	// 11. left 2
 	@Test
 	public void moveMinotaurLeft_twoSpacesBetween_leftTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(0, 3);
+		Point whereThes = new Position(0, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -469,16 +469,16 @@ public class GameTests {
 	// 12. left 3
 	@Test
 	public void moveMinotaurLeft_threeSpacesBetween_leftTwo() {
-		MyPoint whereMin = new DefaultPoint(4, 3);
+		Point whereMin = new Position(4, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(0, 3);
+		Point whereThes = new Position(0, 3);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -491,18 +491,18 @@ public class GameTests {
 	// 13. up 1 with wall
 	@Test
 	public void moveMinotaurUp_oneSpaceBetweenButWall_upNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 1);
+		Point whereThes = new Position(3, 1);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 3);
+		Point whereWall = new Position(3, 3);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 //		boolean expected = true;
 //		boolean actual = game.isBlocked(Direction.UP, whereMin, new DefaultPoint(3, 2));
@@ -514,18 +514,18 @@ public class GameTests {
 	// 14. up 2 with wall
 	@Test
 	public void moveMinotaurUp_twoSpacesBetweenButWall_upOne() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 0);
+		Point whereThes = new Position(3, 0);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 2);
+		Point whereWall = new Position(3, 2);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -534,18 +534,18 @@ public class GameTests {
 	// 15. up 3 with wall
 	@Test
 	public void moveMinotaurUp_threeSpacesBetweenButWall_upTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 4);
+		Point whereMin = new Position(3, 4);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 0);
+		Point whereThes = new Position(3, 0);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 2);
+		Point whereWall = new Position(3, 2);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -554,18 +554,18 @@ public class GameTests {
 	// 16. right 1 with wall
 	@Test
 	public void moveMinotaurRight_oneSpaceBetweenButWall_rightNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(5, 3);
+		Point whereThes = new Position(5, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(4, 3);
+		Point whereWall = new Position(4, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -574,18 +574,18 @@ public class GameTests {
 	// 17. right 2 with wall
 	@Test
 	public void moveMinotaurRight_oneSpaceBetweenButWall_rightOne() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(6, 3);
+		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(5, 3);
+		Point whereWall = new Position(5, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -594,18 +594,18 @@ public class GameTests {
 	// 18. right 3 with wall
 	@Test
 	public void moveMinotaurRight_oneSpaceBetweenButWall_rightTwo() {
-		MyPoint whereMin = new DefaultPoint(2, 3);
+		Point whereMin = new Position(2, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(6, 3);
+		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(5, 3);
+		Point whereWall = new Position(5, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -614,18 +614,18 @@ public class GameTests {
 	// 19. down 1 with wall
 	@Test
 	public void moveMinotaurDown_oneSpaceBetweenButWall_downNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 5);
+		Point whereThes = new Position(3, 5);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -634,18 +634,18 @@ public class GameTests {
 	// 20. down 2 with wall
 	@Test
 	public void moveMinotaurDown_twoSpaceBetweenButWall_downOne() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 6);
+		Point whereThes = new Position(3, 6);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 5);
+		Point whereWall = new Position(3, 5);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -654,18 +654,18 @@ public class GameTests {
 	// 21. down 3 with wall
 	@Test
 	public void moveMinotaurDown_threeSpaceBetweenButWall_downTwo() {
-		MyPoint whereMin = new DefaultPoint(3, 2);
+		Point whereMin = new Position(3, 2);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 6);
+		Point whereThes = new Position(3, 6);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 5);
+		Point whereWall = new Position(3, 5);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -674,18 +674,18 @@ public class GameTests {
 	// 22. left 1 with wall
 	@Test
 	public void moveMinotaurDown_oneSpaceBetweenButWall_leftNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 3);
+		Point whereThes = new Position(1, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 3);
+		Point whereWall = new Position(3, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -694,18 +694,18 @@ public class GameTests {
 	// 23. left 2 with wall
 	@Test
 	public void moveMinotaurDown_twoSpacesBetweenButWall_leftOne() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(0, 3);
+		Point whereThes = new Position(0, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(2, 3);
+		Point whereWall = new Position(2, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -714,18 +714,18 @@ public class GameTests {
 	// 24. left 3 with wall
 	@Test
 	public void moveMinotaurDown_threeSpacesBetweenButWall_leftTwo() {
-		MyPoint whereMin = new DefaultPoint(4, 3);
+		Point whereMin = new Position(4, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(0, 3);
+		Point whereThes = new Position(0, 3);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(2, 3);
+		Point whereWall = new Position(2, 3);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -734,18 +734,18 @@ public class GameTests {
 	// 25. no7
 	@Test
 	public void moveMinotaur_RightDown_wall_downRight() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 1);
+		Point whereThes = new Position(2, 1);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(1, 0);
+		Point whereWall = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -754,20 +754,20 @@ public class GameTests {
 	// 26. no8
 	@Test
 	public void moveMinotaur_RightDown_walls_downDown() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 1);
+		Point whereThes = new Position(2, 1);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall1 = new DefaultPoint(1, 0);
+		Point whereWall1 = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall1);
-		MyPoint whereWall2 = new DefaultPoint(1, 1);
+		Point whereWall2 = new Position(1, 1);
 		gameLoader.addWallLeft(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(0, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(0, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -776,16 +776,16 @@ public class GameTests {
 	// 27. no9
 	@Test
 	public void moveMinotaur_RightDown_rightDown() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 2);
+		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -794,18 +794,18 @@ public class GameTests {
 	// 28. no10
 	@Test
 	public void moveMinotaur_RightDown_wall_rightNone() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 2);
+		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(1, 1);
+		Point whereWall = new Position(1, 1);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 0);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 0);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -814,31 +814,31 @@ public class GameTests {
 	// 29. no11
 	@Test
 	public void moveMinotaur_RightDown_wall2_downRight() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 2);
+		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(1, 0);
+		Point whereWall = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 1);
-		MyPoint actual = gameSaver.wheresMinotaur(); // 0, 0
+		Point expected = new Position(1, 1);
+		Point actual = gameSaver.wheresMinotaur(); // 0, 0
 		
 		// 0, 0
 		System.out.println("top:" + gameSaver.whatsAbove(whereMin));
 		System.out.println("left:" + gameSaver.whatsLeft(whereMin));
 		
 		// 0, 1
-		MyPoint zeroOne = new DefaultPoint(0, 1);
+		Point zeroOne = new Position(0, 1);
 		System.out.println("top:" + gameSaver.whatsAbove(zeroOne));
 		System.out.println("left:" + gameSaver.whatsLeft(zeroOne));
 		System.out.println("blocked?:" + game.isBlocked(Direction.DOWN, whereMin, zeroOne));
 		
 		// 0, 2
-		MyPoint zeroTwo = new DefaultPoint(0, 2);
+		Point zeroTwo = new Position(0, 2);
 		System.out.println("top:" + gameSaver.whatsAbove(zeroTwo));
 		System.out.println("left:" + gameSaver.whatsLeft(zeroTwo));
 		System.out.println("blocked?:" + game.isBlocked(Direction.DOWN, zeroOne, zeroTwo));
@@ -853,20 +853,20 @@ public class GameTests {
 	// 30. no6
 	@Test
 	public void moveMinotaur_RightDown_wallCorner_rightNone() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 1);
+		Point whereThes = new Position(2, 1);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall1 = new DefaultPoint(2, 0);
+		Point whereWall1 = new Position(2, 0);
 		gameLoader.addWallLeft(whereWall1);
-		MyPoint whereWall2 = new DefaultPoint(1, 1);
+		Point whereWall2 = new Position(1, 1);
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 0);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 0);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -875,20 +875,20 @@ public class GameTests {
 	// 31. no12
 	@Test
 	public void moveMinotaur_RightDown_2walls_downDown() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 2);
+		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall1 = new DefaultPoint(1, 0);
+		Point whereWall1 = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall1);
-		MyPoint whereWall2 = new DefaultPoint(1, 1);
+		Point whereWall2 = new Position(1, 1);
 		gameLoader.addWallLeft(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(0, 2);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(0, 2);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -897,22 +897,22 @@ public class GameTests {
 	// 32. no13
 	@Test
 	public void moveMinotaur_RightDown_2wallsCorner_downNone() {
-		MyPoint whereMin = new DefaultPoint(0, 0);
+		Point whereMin = new Position(0, 0);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 2);
+		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall1 = new DefaultPoint(1, 0);
+		Point whereWall1 = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall1);
-		MyPoint whereWall2 = new DefaultPoint(1, 1);
+		Point whereWall2 = new Position(1, 1);
 		gameLoader.addWallLeft(whereWall2);
-		MyPoint whereWall3 = new DefaultPoint(0, 2);
+		Point whereWall3 = new Position(0, 2);
 		gameLoader.addWallAbove(whereWall3);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(0, 1);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(0, 1);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -926,18 +926,18 @@ public class GameTests {
 	// 33. no7
 	@Test
 	public void moveMinotaur_downLeft_wall_leftDown() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 5);
+		Point whereThes = new Position(2, 5);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 4);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 4);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -946,20 +946,20 @@ public class GameTests {
 	// 34. no8
 	@Test
 	public void moveMinotaur_downLeft_2walls_leftNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 5);
+		Point whereThes = new Position(2, 5);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall);
-		MyPoint whereWall2 = new DefaultPoint(2, 4);
+		Point whereWall2 = new Position(2, 4);
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -968,16 +968,16 @@ public class GameTests {
 	// 35. no9
 	@Test
 	public void moveMinotaur_downLeft_leftLeft() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 4);
+		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -986,18 +986,18 @@ public class GameTests {
 	// 36. no10
 	@Test
 	public void moveMinotaur_downLeft_wall_leftLeft() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 4);
+		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1006,18 +1006,18 @@ public class GameTests {
 	// 37. no11
 	@Test
 	public void moveMinotaur_downLeft_wall_leftLeft2() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 4);
+		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1026,20 +1026,20 @@ public class GameTests {
 	// 38. no6
 	@Test
 	public void moveMinotaur_downLeft_wallCorner_leftLeft() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(2, 5);
+		Point whereThes = new Position(2, 5);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(3, 4);
+		Point whereWall = new Position(3, 4);
 		gameLoader.addWallLeft(whereWall);
-		MyPoint whereWall2 = new DefaultPoint(3, 5);
+		Point whereWall2 = new Position(3, 5);
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 4);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 4);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1048,20 +1048,20 @@ public class GameTests {
 	// 39. no12
 	@Test
 	public void moveMinotaur_downLeft_2walls_leftLeft() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 4);
+		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall = new DefaultPoint(2, 4);
+		Point whereWall = new Position(2, 4);
 		gameLoader.addWallAbove(whereWall);
-		MyPoint whereWall2 = new DefaultPoint(3, 4);
+		Point whereWall2 = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(1, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(1, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1070,22 +1070,22 @@ public class GameTests {
 	// 40. no13
 	@Test
 	public void moveMinotaur_downLeft_2wallsCorner_leftNone() {
-		MyPoint whereMin = new DefaultPoint(3, 3);
+		Point whereMin = new Position(3, 3);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(1, 4);
+		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
-		MyPoint whereWall0 = new DefaultPoint(2, 3);
+		Point whereWall0 = new Position(2, 3);
 		gameLoader.addWallLeft(whereWall0);
-		MyPoint whereWall1 = new DefaultPoint(2, 4);
+		Point whereWall1 = new Position(2, 4);
 		gameLoader.addWallAbove(whereWall1);
-		MyPoint whereWall2 = new DefaultPoint(3, 4);
+		Point whereWall2 = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1113,16 +1113,16 @@ public class GameTests {
 	// right->up
 	@Test
 	public void moveMinotaur_rightUp() {
-		MyPoint whereMin = new DefaultPoint(2, 4);
+		Point whereMin = new Position(2, 4);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(3, 2);
+		Point whereThes = new Position(3, 2);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1131,16 +1131,16 @@ public class GameTests {
 	// left->up->death
 	@Test
 	public void moveMinotaur_leftUp_death() {
-		MyPoint whereMin = new DefaultPoint(1, 1);
+		Point whereMin = new Position(1, 1);
 		gameLoader.addMinotaur(whereMin);
-		MyPoint whereThes = new DefaultPoint(0, 0);
+		Point whereThes = new Position(0, 0);
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
 		game.moveMinotaur();
 		
-		MyPoint expected = new DefaultPoint(0, 0);
-		MyPoint actual = gameSaver.wheresMinotaur();
+		Point expected = new Position(0, 0);
+		Point actual = gameSaver.wheresMinotaur();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1153,13 +1153,13 @@ public class GameTests {
 	// 1
 	@Test
 	public void moveTheseus_up_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
 		game.moveTheseus(Direction.UP);
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1168,13 +1168,13 @@ public class GameTests {
 	// 2
 	@Test
 	public void moveTheseus_right_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
 		game.moveTheseus(Direction.RIGHT);
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1183,13 +1183,13 @@ public class GameTests {
 	// 3
 	@Test
 	public void moveTheseus_down_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
 		game.moveTheseus(Direction.DOWN);
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1198,13 +1198,13 @@ public class GameTests {
 	// 4
 	@Test
 	public void moveTheseus_left_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
 		
 		game.moveTheseus(Direction.LEFT);
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1213,15 +1213,15 @@ public class GameTests {
 	// 5
 	@Test
 	public void moveTheseus_up_wallAbove_fail() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallTop = new DefaultPoint(3, 3);
+		Point wallTop = new Position(3, 3);
 		gameLoader.addWallAbove(wallTop);
 		
 		game.moveTheseus(Direction.UP);
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1230,15 +1230,15 @@ public class GameTests {
 	// 6
 	@Test
 	public void moveTheseus_up_wallLeft_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallLeft = new DefaultPoint(3, 3);
+		Point wallLeft = new Position(3, 3);
 		gameLoader.addWallLeft(wallLeft);
 		
 		game.moveTheseus(Direction.UP);
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1247,15 +1247,15 @@ public class GameTests {
 	// 7
 	@Test
 	public void moveTheseus_up_wallRight_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallRight = new DefaultPoint(4, 3);
+		Point wallRight = new Position(4, 3);
 		gameLoader.addWallLeft(wallRight);
 		
 		game.moveTheseus(Direction.UP);
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1264,15 +1264,15 @@ public class GameTests {
 	// 8
 	@Test
 	public void moveTheseus_up_wallDown_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallDown = new DefaultPoint(3, 4);
+		Point wallDown = new Position(3, 4);
 		gameLoader.addWallAbove(wallDown);
 		
 		game.moveTheseus(Direction.UP);
 		
-		MyPoint expected = new DefaultPoint(3, 2);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 2);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1281,15 +1281,15 @@ public class GameTests {
 	// 9
 	@Test
 	public void moveTheseus_right_wallAbove_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallTop = new DefaultPoint(3, 3);
+		Point wallTop = new Position(3, 3);
 		gameLoader.addWallAbove(wallTop);
 		
 		game.moveTheseus(Direction.RIGHT);
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1298,15 +1298,15 @@ public class GameTests {
 	// 10
 	@Test
 	public void moveTheseus_right_wallLeft_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallLeft = new DefaultPoint(3, 3);
+		Point wallLeft = new Position(3, 3);
 		gameLoader.addWallLeft(wallLeft);
 		
 		game.moveTheseus(Direction.RIGHT);
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1315,15 +1315,15 @@ public class GameTests {
 	// 11
 	@Test
 	public void moveTheseus_right_wallRight_fail() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallRight = new DefaultPoint(4, 3);
+		Point wallRight = new Position(4, 3);
 		gameLoader.addWallLeft(wallRight);
 		
 		game.moveTheseus(Direction.RIGHT);
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1332,15 +1332,15 @@ public class GameTests {
 	// 12
 	@Test
 	public void moveTheseus_right_wallDown_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallDown = new DefaultPoint(3, 4);
+		Point wallDown = new Position(3, 4);
 		gameLoader.addWallAbove(wallDown);
 		
 		game.moveTheseus(Direction.RIGHT);
 		
-		MyPoint expected = new DefaultPoint(4, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(4, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1349,15 +1349,15 @@ public class GameTests {
 	// 13
 	@Test
 	public void moveTheseus_down_wallAbove_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallTop = new DefaultPoint(3, 3);
+		Point wallTop = new Position(3, 3);
 		gameLoader.addWallAbove(wallTop);
 		
 		game.moveTheseus(Direction.DOWN);
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1366,15 +1366,15 @@ public class GameTests {
 	// 14
 	@Test
 	public void moveTheseus_down_wallLeft_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallLeft = new DefaultPoint(3, 3);
+		Point wallLeft = new Position(3, 3);
 		gameLoader.addWallLeft(wallLeft);
 		
 		game.moveTheseus(Direction.DOWN);
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1383,15 +1383,15 @@ public class GameTests {
 	// 15
 	@Test
 	public void moveTheseus_down_wallRight_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallRight = new DefaultPoint(4, 3);
+		Point wallRight = new Position(4, 3);
 		gameLoader.addWallLeft(wallRight);
 		
 		game.moveTheseus(Direction.DOWN);
 		
-		MyPoint expected = new DefaultPoint(3, 4);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 4);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1400,15 +1400,15 @@ public class GameTests {
 	// 16
 	@Test
 	public void moveTheseus_down_wallDown_fail() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallDown = new DefaultPoint(3, 4);
+		Point wallDown = new Position(3, 4);
 		gameLoader.addWallAbove(wallDown);
 		
 		game.moveTheseus(Direction.DOWN);
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1417,15 +1417,15 @@ public class GameTests {
 	// 17
 	@Test
 	public void moveTheseus_left_wallAbove_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallTop = new DefaultPoint(3, 3);
+		Point wallTop = new Position(3, 3);
 		gameLoader.addWallAbove(wallTop);
 		
 		game.moveTheseus(Direction.LEFT);
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1434,15 +1434,15 @@ public class GameTests {
 	// 18
 	@Test
 	public void moveTheseus_left_wallLeft_fail() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallLeft = new DefaultPoint(3, 3);
+		Point wallLeft = new Position(3, 3);
 		gameLoader.addWallLeft(wallLeft);
 		
 		game.moveTheseus(Direction.LEFT);
 		
-		MyPoint expected = new DefaultPoint(3, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(3, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1451,15 +1451,15 @@ public class GameTests {
 	// 19
 	@Test
 	public void moveTheseus_left_wallRight_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallRight = new DefaultPoint(4, 3);
+		Point wallRight = new Position(4, 3);
 		gameLoader.addWallLeft(wallRight);
 		
 		game.moveTheseus(Direction.LEFT);
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1468,15 +1468,15 @@ public class GameTests {
 	// 20
 	@Test
 	public void moveTheseus_left_wallDown_success() {
-		MyPoint theseusAt = new DefaultPoint(3, 3);
+		Point theseusAt = new Position(3, 3);
 		gameLoader.addTheseus(theseusAt);
-		MyPoint wallDown = new DefaultPoint(3, 4);
+		Point wallDown = new Position(3, 4);
 		gameLoader.addWallAbove(wallDown);
 		
 		game.moveTheseus(Direction.LEFT);
 		
-		MyPoint expected = new DefaultPoint(2, 3);
-		MyPoint actual = gameSaver.wheresTheseus();
+		Point expected = new Position(2, 3);
+		Point actual = gameSaver.wheresTheseus();
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
@@ -1496,7 +1496,7 @@ public class GameTests {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				MyPoint here = new DefaultPoint(j, i);
+				Point here = new Position(j, i);
 				Wall left = gameSaver.whatsLeft(here);
 				Wall top = gameSaver.whatsAbove(here);
 				row += "{l:" + left + ", t:" + top + "} ";
@@ -1505,11 +1505,11 @@ public class GameTests {
 			
 		}
 		
-		MyPoint wallAt = new DefaultPoint(2, 2);
+		Point wallAt = new Position(2, 2);
 		gameLoader.addWallAbove(wallAt);
 		
 		Wall expected = Wall.SOMETHING;
-		Wall actual = gameSaver.whatsAbove(new DefaultPoint(2, 2));
+		Wall actual = gameSaver.whatsAbove(new Position(2, 2));
 		
 		assertEquals(expected, actual);
 	}
@@ -1517,11 +1517,11 @@ public class GameTests {
 	// 2
 	@Test
 	public void addWallLeft_exists() {
-		MyPoint wallAt = new DefaultPoint(3, 3);
+		Point wallAt = new Position(3, 3);
 		gameLoader.addWallLeft(wallAt);
 		
 		Wall expected = Wall.SOMETHING;
-		Wall actual = gameSaver.whatsLeft(new DefaultPoint(3, 3));
+		Wall actual = gameSaver.whatsLeft(new Position(3, 3));
 		
 		assertEquals(expected, actual);
 	}

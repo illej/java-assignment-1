@@ -3,9 +3,9 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 public interface Loadable {
 	int setWidthAcross(int widthAcross);
 	int setDepthDown(int depthDown);
-	void addWallAbove(MyPoint where);
-	void addWallLeft(MyPoint where);
-	void addTheseus(MyPoint where) /*throws Exception*/;
-	void addMinotaur(MyPoint where);
-	void addExit(MyPoint where);
+	void addWallAbove(Point where);
+	void addWallLeft(Point where);
+	void addTheseus(Point where) /*throws Exception*/;
+	void addMinotaur(Point where);
+	void addExit(Point where);
 }

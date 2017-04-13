@@ -14,13 +14,13 @@ public class Game implements Playable, Loadable, Saveable {
 	 * Private Methods
 	 */
 
-	private Cell getCell(MyPoint where) {
+	private Cell getCell(Point where) {
 		List<Cell> row = level.get(where.down());
 		Cell cell = row.get(where.across());
 		return cell;
 	}
 
-	private void setCellInfo(MyPoint where, Object object, String key) {
+	private void setCellInfo(Point where, Object object, String key) {
 		int rowIndex = where.down();
 		int cellIndex = where.across();
 		List<Cell> rowCopy = level.get(rowIndex);
@@ -45,13 +45,13 @@ public class Game implements Playable, Loadable, Saveable {
 	/*
 	 * Currently only finds first occurrence.. TODO: ensure only ONE occurrence?
 	 */
-	public MyPoint findObject(Object object, String key) {
-		MyPoint result = null;
-		List<MyPoint> points = new ArrayList<MyPoint>();
+	public Point findObject(Object object, String key) {
+		Point result = null;
+		List<Point> points = new ArrayList<Point>();
 		
 		for (int i = 0; i < this.depth; i++) {
 			for (int j = 0; j < this.width; j++) {
-				MyPoint here = new DefaultPoint(j, i);
+				Point here = new Position(j, i);
 				if (this.getCell(here).get(key) == object) {
 					result = here;
 					points.add(result);
@@ -69,7 +69,7 @@ public class Game implements Playable, Loadable, Saveable {
 
 	// [8/8] Tests passing
 	// TODO: Polymorph?
-	public boolean isBlocked(Direction direction, MyPoint current, MyPoint destination) {
+	public boolean isBlocked(Direction direction, Point current, Point destination) {
 		boolean result = false;
 
 		if (direction == Direction.LEFT) {
@@ -95,7 +95,7 @@ public class Game implements Playable, Loadable, Saveable {
 
 	// [8/8] Tests passing
 	// TODO: Polymorph?
-	public Direction findDirection(MyPoint theseus, MyPoint minotaur, String flag) {
+	public Direction findDirection(Point theseus, Point minotaur, String flag) {
 		Direction result = null;
 
 		if (flag == "horizontal") {
@@ -130,28 +130,28 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 
 	@Override
-	public Wall whatsAbove(MyPoint where) {
+	public Wall whatsAbove(Point where) {
 		return (Wall) this.getCell(where).get("top");
 	}
 
 	@Override
-	public Wall whatsLeft(MyPoint where) {
+	public Wall whatsLeft(Point where) {
 		return (Wall) this.getCell(where).get("left");
 	}
 
 	@Override
-	public MyPoint wheresTheseus() {
-		return this.findObject(Actor.THESEUS, "character");
+	public Point wheresTheseus() {
+		return this.findObject(Part.THESEUS, "character");
 	}
 
 	@Override
-	public MyPoint wheresMinotaur() {
-		return this.findObject(Actor.MINOTAUR, "character");
+	public Point wheresMinotaur() {
+		return this.findObject(Part.MINOTAUR, "character");
 	}
 
 	@Override
-	public MyPoint wheresExit() {
-		return this.findObject(Actor.EXIT, "objective");
+	public Point wheresExit() {
+		return this.findObject(Part.EXIT, "objective");
 	}
 
 	/*
@@ -178,43 +178,43 @@ public class Game implements Playable, Loadable, Saveable {
 				&& this.depth > 0) {
 			this.build();
 		} // TODO: else throw exception
-
+		
 		return this.depth; // ?
 	}
 
 	@Override
-	public void addWallAbove(MyPoint where) {
+	public void addWallAbove(Point where) {
 		this.setCellInfo(where, Wall.SOMETHING, "top");
 	}
 
 	@Override
-	public void addWallLeft(MyPoint where) {
+	public void addWallLeft(Point where) {
 		this.setCellInfo(where, Wall.SOMETHING, "left");
 	}
 
 	@Override
-	public void addTheseus(MyPoint where) /*throws Exception*/ {
+	public void addTheseus(Point where) /*throws Exception*/ {
 		// TODO: Add error checking to ensure only 1 theseus
 		// 			exists in the level at all times.
 		
-		MyPoint check = this.findObject(Actor.THESEUS, "character");
+		Point check = this.findObject(Part.THESEUS, "character");
 		if (check != null) {
-			this.setCellInfo(check, Actor.NONE, "character");
+			this.setCellInfo(check, Part.NONE, "character");
 			System.out.println("found a theseus, but cloned and killed the original.");
 			// TODO: throw new Exception();
 		}
 		
-		this.setCellInfo(where, Actor.THESEUS, "character");
+		this.setCellInfo(where, Part.THESEUS, "character");
 	}
 
 	@Override
-	public void addMinotaur(MyPoint where) {
-		this.setCellInfo(where, Actor.MINOTAUR, "character");
+	public void addMinotaur(Point where) {
+		this.setCellInfo(where, Part.MINOTAUR, "character");
 	}
 
 	@Override
-	public void addExit(MyPoint where) {
-		this.setCellInfo(where, Actor.EXIT, "objective");
+	public void addExit(Point where) {
+		this.setCellInfo(where, Part.EXIT, "objective");
 	}
 
 	/*
@@ -226,14 +226,14 @@ public class Game implements Playable, Loadable, Saveable {
 	 */
 	@Override
 	public void moveTheseus(Direction direction) {
-		MyPoint current = this.wheresTheseus();
-		MyPoint destination = 
-				new DefaultPoint(
+		Point current = this.wheresTheseus();
+		Point destination = 
+				new Position(
 						current.across() + direction.xAdjust,
 						current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
-			this.setCellInfo(current, Actor.NONE, "character");
+			this.setCellInfo(current, Part.NONE, "character");
 			this.addTheseus(destination);
 		} else {
 			System.out.println("blocked! ~:(");
@@ -242,9 +242,9 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public void moveMinotaur() {
-		MyPoint theseusAt = this.wheresTheseus();
-		MyPoint minotaurAt = this.wheresMinotaur();
-		MyPoint destination;
+		Point theseusAt = this.wheresTheseus();
+		Point minotaurAt = this.wheresMinotaur();
+		Point destination;
 
 		Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
 		Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
@@ -253,19 +253,19 @@ public class Game implements Playable, Loadable, Saveable {
 				&& !this.isBlocked(
 						horizDir, 
 						minotaurAt,
-						destination = new DefaultPoint(
+						destination = new Position(
 								minotaurAt.across() + horizDir.xAdjust,
 								minotaurAt.down() + horizDir.yAdjust))) {
-			this.setCellInfo(minotaurAt, Actor.NONE, "character");
+			this.setCellInfo(minotaurAt, Part.NONE, "character");
 			this.addMinotaur(destination);
 		} else if (vertDir != null
 				&& !this.isBlocked(
 						vertDir, 
 						minotaurAt,
-						destination = new DefaultPoint(
+						destination = new Position(
 								minotaurAt.across() + vertDir.xAdjust,
 								minotaurAt.down() + vertDir.yAdjust))) {
-			this.setCellInfo(minotaurAt, Actor.NONE, "character");
+			this.setCellInfo(minotaurAt, Part.NONE, "character");
 			this.addMinotaur(destination);
 		}
 	}

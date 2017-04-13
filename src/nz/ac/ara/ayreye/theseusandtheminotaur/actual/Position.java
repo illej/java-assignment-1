@@ -1,11 +1,11 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
-public class DefaultPoint implements MyPoint {
+public class Position implements Point {
 	
 	private int x;
 	private int y;
 	
-	public DefaultPoint(int x, int y) {
+	public Position(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
