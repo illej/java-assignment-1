@@ -45,18 +45,24 @@ public class Game implements Playable, Loadable, Saveable {
 	/*
 	 * Currently only finds first occurrence.. TODO: ensure only ONE occurrence?
 	 */
-	private MyPoint findObject(Object object, String key) {
+	public MyPoint findObject(Object object, String key) {
 		MyPoint result = null;
-
+		List<MyPoint> points = new ArrayList<MyPoint>();
+		
 		for (int i = 0; i < this.depth; i++) {
 			for (int j = 0; j < this.width; j++) {
 				MyPoint here = new DefaultPoint(j, i);
 				if (this.getCell(here).get(key) == object) {
 					result = here;
+					points.add(result);
 				}
 			}
 		}
-
+		
+		if (points.size() > 1) {
+			System.out.println("Too many " + object + " in LEVEL.");
+		}
+		
 		return result;
 	}
 
@@ -188,6 +194,14 @@ public class Game implements Playable, Loadable, Saveable {
 	@Override
 	public void addTheseus(MyPoint where) {
 		// TODO: Change to 'Character base class type'
+		// TODO: Add error checking to ensure only 1 theseus
+		// 			exists in the level at all times.
+		
+		MyPoint check = this.findObject(Actor.THESEUS, "character");
+		if (check != null) {
+			this.setCellInfo(check, Actor.NONE, "character");
+			System.out.println("found a theseus, but cloned him, and killed the original.");
+		}
 		this.setCellInfo(where, Actor.THESEUS, "character");
 	}
 
@@ -212,8 +226,9 @@ public class Game implements Playable, Loadable, Saveable {
 	@Override
 	public void moveTheseus(Direction direction) {
 		MyPoint current = this.wheresTheseus();
-		MyPoint destination = new DefaultPoint(current.across() + direction.xAdjust,
-												current.down() + direction.yAdjust);
+		MyPoint destination = new DefaultPoint(
+				current.across() + direction.xAdjust,
+				current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
 			this.setCellInfo(current, Actor.NONE, "character");

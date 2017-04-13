@@ -2,7 +2,9 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GameTests {
 
 	public static Playable game;
@@ -47,7 +49,7 @@ public class GameTests {
 	 */
 	
 	@Test
-	public void isBlocked_moveUp_true() {
+	public void test01_isBlocked_moveUp_true() {
 		MyPoint current = new DefaultPoint(3, 5);
 		MyPoint destination = new DefaultPoint(3, 4);
 		
@@ -60,7 +62,7 @@ public class GameTests {
 		assertEquals(expected, actual);	
 	}
 	@Test
-	public void isBlocked_moveUp_false() {
+	public void test02_isBlocked_moveUp_false() {
 		MyPoint current = new DefaultPoint(3, 5);
 		MyPoint destination = new DefaultPoint(3, 4);
 		
@@ -1475,6 +1477,65 @@ public class GameTests {
 		
 		MyPoint expected = new DefaultPoint(2, 3);
 		MyPoint actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	// 1
+	@Test
+	public void addWallAbove_exists() {
+		// Cell (TOP, LEFT, CHARACTER, OBJECTIVE)
+		String rawLevel = 
+				  "ctl--ct---ct---ctl--\n"
+				+ "cl---c----c----cl---\n"
+				+ "cl---c----c----cl---\n"
+				+ "cl---c----c----cl---\n"
+				+ "ctl--ct---ct---ctl--\n";
+		
+		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+			String row = "";
+			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
+				MyPoint here = new DefaultPoint(j, i);
+				Wall left = gameSaver.whatsLeft(here);
+				Wall top = gameSaver.whatsAbove(here);
+				row += "{l:" + left + ", t:" + top + "} ";
+			}
+			System.out.println(row);
+			
+		}
+		
+		MyPoint wallAt = new DefaultPoint(2, 2);
+		gameLoader.addWallAbove(wallAt);
+		
+		Wall expected = Wall.SOMETHING;
+		Wall actual = gameSaver.whatsAbove(new DefaultPoint(2, 2));
+		
+		assertEquals(expected, actual);
+	}
+	
+	// 2
+	@Test
+	public void addWallLeft_exists() {
+		MyPoint wallAt = new DefaultPoint(3, 3);
+		gameLoader.addWallLeft(wallAt);
+		
+		Wall expected = Wall.SOMETHING;
+		Wall actual = gameSaver.whatsLeft(new DefaultPoint(3, 3));
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void twoTheseus_gettingrekt() {
+		MyPoint firstTheseus = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(firstTheseus);
+		
+		MyPoint secondTheseus = new DefaultPoint(4, 4);
+		gameLoader.addTheseus(secondTheseus);
+		
+		MyPoint expected = new DefaultPoint(4, 4);
+		MyPoint actual = game.findObject(Actor.THESEUS, "character");
 		
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
