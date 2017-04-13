@@ -59,6 +59,7 @@ public class Game implements Playable, Loadable, Saveable {
 			}
 		}
 		
+		// TODO: Replace with an Exception??
 		if (points.size() > 1) {
 			System.out.println("Too many " + object + " in LEVEL.");
 		}
@@ -67,6 +68,7 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 
 	// [8/8] Tests passing
+	// TODO: Polymorph?
 	public boolean isBlocked(Direction direction, MyPoint current, MyPoint destination) {
 		boolean result = false;
 
@@ -139,20 +141,17 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public MyPoint wheresTheseus() {
-		// TODO: Change to 'getCell' ?
 		return this.findObject(Actor.THESEUS, "character");
 	}
 
 	@Override
 	public MyPoint wheresMinotaur() {
-		// TODO: Change to 'getCell' ?
 		return this.findObject(Actor.MINOTAUR, "character");
 	}
 
 	@Override
 	public MyPoint wheresExit() {
-		// TODO: Change to 'getCell' ?
-		return this.findObject(Objective.EXIT, "objective");
+		return this.findObject(Actor.EXIT, "objective");
 	}
 
 	/*
@@ -163,7 +162,8 @@ public class Game implements Playable, Loadable, Saveable {
 	public int setWidthAcross(int widthAcross) {
 		this.width = widthAcross;
 
-		if (this.depth > 0 && this.width > 0) {
+		if (this.depth > 0
+				&& this.width > 0) {
 			this.build();
 		} // TODO: else throw exception?
 
@@ -174,7 +174,8 @@ public class Game implements Playable, Loadable, Saveable {
 	public int setDepthDown(int depthDown) {
 		this.depth = depthDown;
 
-		if (this.width > 0 && this.depth > 0) {
+		if (this.width > 0
+				&& this.depth > 0) {
 			this.build();
 		} // TODO: else throw exception
 
@@ -192,28 +193,28 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 
 	@Override
-	public void addTheseus(MyPoint where) {
-		// TODO: Change to 'Character base class type'
+	public void addTheseus(MyPoint where) /*throws Exception*/ {
 		// TODO: Add error checking to ensure only 1 theseus
 		// 			exists in the level at all times.
 		
 		MyPoint check = this.findObject(Actor.THESEUS, "character");
 		if (check != null) {
 			this.setCellInfo(check, Actor.NONE, "character");
-			System.out.println("found a theseus, but cloned him, and killed the original.");
+			System.out.println("found a theseus, but cloned and killed the original.");
+			// TODO: throw new Exception();
 		}
+		
 		this.setCellInfo(where, Actor.THESEUS, "character");
 	}
 
 	@Override
 	public void addMinotaur(MyPoint where) {
-		// TODO: Change to 'Character base class type'
 		this.setCellInfo(where, Actor.MINOTAUR, "character");
 	}
 
 	@Override
 	public void addExit(MyPoint where) {
-		this.setCellInfo(where, Objective.EXIT, "objective");
+		this.setCellInfo(where, Actor.EXIT, "objective");
 	}
 
 	/*
@@ -226,9 +227,10 @@ public class Game implements Playable, Loadable, Saveable {
 	@Override
 	public void moveTheseus(Direction direction) {
 		MyPoint current = this.wheresTheseus();
-		MyPoint destination = new DefaultPoint(
-				current.across() + direction.xAdjust,
-				current.down() + direction.yAdjust);
+		MyPoint destination = 
+				new DefaultPoint(
+						current.across() + direction.xAdjust,
+						current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
 			this.setCellInfo(current, Actor.NONE, "character");

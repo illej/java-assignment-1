@@ -1526,8 +1526,8 @@ public class GameTests {
 		assertEquals(expected, actual);
 	}
 	
-	@Test
-	public void twoTheseus_gettingrekt() {
+	/*@Test (expected = Exception.class)
+	public void test82_twoTheseus_gettingrekt() throws Exception {
 		MyPoint firstTheseus = new DefaultPoint(3, 3);
 		gameLoader.addTheseus(firstTheseus);
 		
@@ -1540,4 +1540,24 @@ public class GameTests {
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
 	}
+	
+	@Test (expected = Exception.class)
+	public void test83_twoTheseus_throwException() throws Exception {
+		MyPoint firstTheseus = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(firstTheseus);
+		
+		MyPoint secondTheseus = new DefaultPoint(4, 4);
+		gameLoader.addTheseus(secondTheseus);
+	}
+	
+	@Test  //WORKS! When safety code in .addTheseus() is removed
+	public void test84_findObject_twoTheseus_tooMany() {
+		MyPoint firstTheseus = new DefaultPoint(3, 3);
+		gameLoader.addTheseus(firstTheseus);
+		
+		MyPoint secondTheseus = new DefaultPoint(4, 4);
+		gameLoader.addTheseus(secondTheseus);
+		
+		game.findObject(Actor.THESEUS, "character");
+	}*/
 }
