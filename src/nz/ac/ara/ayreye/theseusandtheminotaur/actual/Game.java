@@ -194,8 +194,10 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public void addTheseus(Point where) /*throws Exception*/ {
-		// TODO: Add error checking to ensure only 1 theseus
-		// 			exists in the level at all times.
+		/* 
+		 * TODO: Add error checking to ensure only 1 theseus 
+		 * exists in the level at all times.
+		 */
 		
 		Point check = this.findObject(Part.THESEUS, "character");
 		if (check != null) {
