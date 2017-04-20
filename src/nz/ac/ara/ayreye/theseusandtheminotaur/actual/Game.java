@@ -231,8 +231,8 @@ public class Game implements Playable, Loadable, Saveable {
 		Point current = this.wheresTheseus();
 		Point destination = 
 				new Position(
-						current.across() + direction.xAdjust,
-						current.down() + direction.yAdjust);
+					current.across() + direction.xAdjust,
+					current.down() + direction.yAdjust);
 
 		if (!this.isBlocked(direction, current, destination)) {
 			this.setCellInfo(current, Part.NONE, "character");
