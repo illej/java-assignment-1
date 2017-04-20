@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Game implements Playable, Loadable, Saveable {
 
-	protected List<List<Cell>> level = new ArrayList<List<Cell>>();
-	protected int width = 0;
-	protected int depth = 0;
+	private List<List<Cell>> level = new ArrayList<List<Cell>>();
+	private int width = 0;
+	private int depth = 0;
 
 	/*
 	 * Private Methods
@@ -193,7 +193,7 @@ public class Game implements Playable, Loadable, Saveable {
 	}
 
 	@Override
-	public void addTheseus(Point where) /*throws Exception*/ {
+	public void addTheseus(Point where) {
 		/* 
 		 * TODO: Add error checking to ensure only 1 theseus 
 		 * exists in the level at all times.
