@@ -260,8 +260,6 @@ public class GameTests {
 		Point whereThes = new Position(3, 1);
 		gameLoader.addTheseus(whereThes);
 		
-		// Not sure if 2 calls?
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 1);
@@ -281,7 +279,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 1);
 		Point actual = gameSaver.wheresMinotaur();
@@ -298,7 +295,6 @@ public class GameTests {
 		Point whereThes = new Position(3, 0);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 2);
@@ -317,7 +313,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(5, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -334,7 +329,6 @@ public class GameTests {
 		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(5, 3);
@@ -353,7 +347,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 5);
 		Point actual = gameSaver.wheresMinotaur();
@@ -370,7 +363,6 @@ public class GameTests {
 		Point whereThes = new Position(6, 3);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(4, 3);
@@ -389,7 +381,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 5);
 		Point actual = gameSaver.wheresMinotaur();
@@ -406,7 +397,6 @@ public class GameTests {
 		Point whereThes = new Position(3, 6);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 5);
@@ -425,7 +415,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 4);
 		Point actual = gameSaver.wheresMinotaur();
@@ -442,7 +431,6 @@ public class GameTests {
 		Point whereThes = new Position(1, 3);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
@@ -461,7 +449,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -478,7 +465,6 @@ public class GameTests {
 		Point whereThes = new Position(0, 3);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(2, 3);
@@ -503,14 +489,10 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 3);
 		Point actual = gameSaver.wheresMinotaur();
 		
-//		boolean expected = true;
-//		boolean actual = game.isBlocked(Direction.UP, whereMin, new DefaultPoint(3, 2));
-//		assertEquals(expected, actual);
 		assertEquals(expected.across(), actual.across());
 		assertEquals(expected.down(), actual.down());
 	}
@@ -525,7 +507,6 @@ public class GameTests {
 		Point whereWall = new Position(3, 2);
 		gameLoader.addWallAbove(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 2);
@@ -546,7 +527,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 2);
 		Point actual = gameSaver.wheresMinotaur();
@@ -565,7 +545,6 @@ public class GameTests {
 		Point whereWall = new Position(4, 3);
 		gameLoader.addWallLeft(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 3);
@@ -586,7 +565,6 @@ public class GameTests {
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(4, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -605,7 +583,6 @@ public class GameTests {
 		Point whereWall = new Position(5, 3);
 		gameLoader.addWallLeft(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(4, 3);
@@ -626,7 +603,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -645,7 +621,6 @@ public class GameTests {
 		Point whereWall = new Position(3, 5);
 		gameLoader.addWallAbove(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 4);
@@ -666,7 +641,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 4);
 		Point actual = gameSaver.wheresMinotaur();
@@ -685,7 +659,6 @@ public class GameTests {
 		Point whereWall = new Position(3, 3);
 		gameLoader.addWallLeft(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(3, 3);
@@ -706,7 +679,6 @@ public class GameTests {
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -726,7 +698,6 @@ public class GameTests {
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -745,7 +716,6 @@ public class GameTests {
 		Point whereWall = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 1);
@@ -768,7 +738,6 @@ public class GameTests {
 		gameLoader.addWallLeft(whereWall2);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(0, 1);
 		Point actual = gameSaver.wheresMinotaur();
@@ -785,7 +754,6 @@ public class GameTests {
 		Point whereThes = new Position(1, 2);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 1);
@@ -806,7 +774,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(1, 0);
 		Point actual = gameSaver.wheresMinotaur();
@@ -825,7 +792,6 @@ public class GameTests {
 		Point whereWall = new Position(1, 0);
 		gameLoader.addWallLeft(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 1);
@@ -867,7 +833,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(1, 0);
 		Point actual = gameSaver.wheresMinotaur();
@@ -888,7 +853,6 @@ public class GameTests {
 		Point whereWall2 = new Position(1, 1);
 		gameLoader.addWallLeft(whereWall2);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(0, 2);
@@ -912,7 +876,6 @@ public class GameTests {
 		Point whereWall3 = new Position(0, 2);
 		gameLoader.addWallAbove(whereWall3);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(0, 1);
@@ -938,7 +901,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 4);
 		Point actual = gameSaver.wheresMinotaur();
@@ -960,7 +922,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -977,7 +938,6 @@ public class GameTests {
 		Point whereThes = new Position(1, 4);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
@@ -998,7 +958,6 @@ public class GameTests {
 		gameLoader.addWallLeft(whereWall);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -1017,7 +976,6 @@ public class GameTests {
 		Point whereWall = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
@@ -1040,7 +998,6 @@ public class GameTests {
 		gameLoader.addWallAbove(whereWall2);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(2, 4);
 		Point actual = gameSaver.wheresMinotaur();
@@ -1061,7 +1018,6 @@ public class GameTests {
 		Point whereWall2 = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall2);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(1, 3);
@@ -1085,7 +1041,6 @@ public class GameTests {
 		Point whereWall2 = new Position(3, 4);
 		gameLoader.addWallAbove(whereWall2);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(2, 3);
@@ -1123,7 +1078,6 @@ public class GameTests {
 		gameLoader.addTheseus(whereThes);
 		
 		game.moveMinotaur();
-		game.moveMinotaur();
 		
 		Point expected = new Position(3, 3);
 		Point actual = gameSaver.wheresMinotaur();
@@ -1140,7 +1094,6 @@ public class GameTests {
 		Point whereThes = new Position(0, 0);
 		gameLoader.addTheseus(whereThes);
 		
-		game.moveMinotaur();
 		game.moveMinotaur();
 		
 		Point expected = new Position(0, 0);

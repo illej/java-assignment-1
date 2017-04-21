@@ -1,7 +1,7 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public interface Saver {
-	void save(Game game);
-	void save(Game game, String fileName);
-	void save(Game game, String fileName, String levelName);
+	void save(Saveable gameSaver);
+	void save(Saveable gameSaver, String fileName);
+	void save(Saveable gameSaver, String fileName, String levelName);
 }

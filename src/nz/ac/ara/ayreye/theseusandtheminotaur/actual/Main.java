@@ -9,10 +9,14 @@ public class Main {
 		Loadable gameLoader = (Loadable)game;
 		Saveable gameSaver = (Saveable)game;
 		
+		Loader loader = new FileLoader();
+		Saver saver = new FileSaver();
+		
 		/* <<Views>> */
+		View view = new ConsoleView();
 		
 		/* <<Controller>> */
-		new Controller(game, gameLoader, gameSaver).run();
+		new Controller(game, gameLoader, gameSaver, loader, saver, view).run();
 	}
 
 }

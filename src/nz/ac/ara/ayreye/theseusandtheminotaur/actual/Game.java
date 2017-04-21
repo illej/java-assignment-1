@@ -244,32 +244,47 @@ public class Game implements Playable, Loadable, Saveable {
 
 	@Override
 	public void moveMinotaur() {
-		Point theseusAt = this.wheresTheseus();
-		Point minotaurAt = this.wheresMinotaur();
-		Point destination;
-
-		Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
-		Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
-
-		if (horizDir != null
-				&& !this.isBlocked(
-						horizDir, 
-						minotaurAt,
-						destination = new Position(
-								minotaurAt.across() + horizDir.xAdjust,
-								minotaurAt.down() + horizDir.yAdjust))) {
-			this.setCellInfo(minotaurAt, Part.NONE, "character");
-			this.addMinotaur(destination);
-		} else if (vertDir != null
-				&& !this.isBlocked(
-						vertDir, 
-						minotaurAt,
-						destination = new Position(
-								minotaurAt.across() + vertDir.xAdjust,
-								minotaurAt.down() + vertDir.yAdjust))) {
-			this.setCellInfo(minotaurAt, Part.NONE, "character");
-			this.addMinotaur(destination);
+		int moves = 2;
+		while (moves > 0) {
+			Point theseusAt = this.wheresTheseus();
+			Point minotaurAt = this.wheresMinotaur();
+			Point destination;
+			
+			Direction horizDir = this.findDirection(theseusAt, minotaurAt, "horizontal");
+			Direction vertDir = this.findDirection(theseusAt, minotaurAt, "vertical");
+	
+			if (horizDir != null
+					&& !this.isBlocked(
+							horizDir, 
+							minotaurAt,
+							destination = new Position(
+									minotaurAt.across() + horizDir.xAdjust,
+									minotaurAt.down() + horizDir.yAdjust))) {
+				this.setCellInfo(minotaurAt, Part.NONE, "character");
+				this.addMinotaur(destination);
+			} else if (vertDir != null
+					&& !this.isBlocked(
+							vertDir, 
+							minotaurAt,
+							destination = new Position(
+									minotaurAt.across() + vertDir.xAdjust,
+									minotaurAt.down() + vertDir.yAdjust))) {
+				this.setCellInfo(minotaurAt, Part.NONE, "character");
+				this.addMinotaur(destination);
+			}
+			moves--;
 		}
 	}
 
+	/*
+	 * NO IDEA WHATS GOING ON ANYMORE
+	 */
+	
+	public void load() {
+		// TODO: move to constructor!!!
+		Loader loadModel = new FileLoader();
+		String file = "file.txt";
+		String result = loadModel.load(file);
+		System.out.println(result);
+	}
 }
