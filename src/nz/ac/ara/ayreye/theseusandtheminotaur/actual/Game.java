@@ -2,13 +2,23 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 //import static org.junit.Assert.*;
 
-public class Game implements Playable, Loadable, Saveable {
+public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
+	private Loader loader;
+	private Saver saver;
+	
 	private List<List<Cell>> level = new ArrayList<List<Cell>>();
 	private int width = 0;
 	private int depth = 0;
+	
+	public Game(Loader loader, Saver saver) {
+		// Could still receive these from the controller?
+		this.loader = new FileLoader(/*this*/);
+		this.saver = new FileSaver(/*this*/);
+	}
 
 	/*
 	 * Private Methods
@@ -274,6 +284,36 @@ public class Game implements Playable, Loadable, Saveable {
 			}
 			moves--;
 		}
+	}
+
+	/*
+	 * <<Interface>> Loader
+	 */
+	
+	@Override
+	public void load(Loadable gameLoader, String filename) {
+		this.loader.load(gameLoader, filename);
+	}
+
+	/*
+	 * <<Interface>> Saver
+	 */
+
+	@Override
+	public void save(Saveable gameSaver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(Saveable gameSaver, String fileName) {
+		this.saver.save(gameSaver, fileName);
+	}
+
+	@Override
+	public void save(Saveable gameSaver, String fileName, String levelName) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

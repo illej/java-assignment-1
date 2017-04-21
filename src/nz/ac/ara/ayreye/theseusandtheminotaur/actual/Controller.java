@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 public class Controller {
 
-	private Playable game;
+	private Playable gamePlayer;
 	private Loadable gameLoader;
 	private Saveable gameSaver;
 	private Loader loader;
@@ -15,13 +15,13 @@ public class Controller {
 	private View view;
 	
 	public Controller(
-			Playable game, 
+			Playable gamePlayer, 
 			Loadable gameLoader, 
 			Saveable gameSaver, 
 			Loader loader,
 			Saver saver,
 			View view) {
-		this.game = game;
+		this.gamePlayer = gamePlayer;
 		this.gameLoader = gameLoader;
 		this.gameSaver = gameSaver;
 		this.loader = loader;
@@ -49,132 +49,91 @@ public class Controller {
 	
 	public void run() {
 		
-		/* LOAD */
+		// Load file into a hashmap
 		String filename = "level.txt"; // HARDCODED
-		Map<String, String[]> level = this.loader.load(filename);
-		
-		// U
-		String[] rowsUps = level.get("U");
-		int depth = rowsUps.length;
-		int width = rowsUps[0].length();
-		
-		gameLoader.setDepthDown(depth);
-		gameLoader.setWidthAcross(width);
-		
-		for (int i = 0; i < depth; i++) {
-			String row = rowsUps[i];
-			for (int j = 0; j < width; j++) {
-				if (row.charAt(j) == 'x') {
-					gameLoader.addWallAbove(new Position(j, i));
-				}
-			}
-		}
-		
-		// L
-		String[] rowsLefts = level.get("L");
-		for (int i = 0; i < depth; i++) {
-			String row = rowsLefts[i];
-			for (int j = 0; j < width; j++) {
-				if (row.charAt(j) == 'x') {
-					gameLoader.addWallLeft(new Position(j, i));
-				}
-			}
-		}
-		
-		/* TEST THIS CODE BLOCK */
-		Point where = new Position(3, 3);
-		
-		Map<String, Consumer<Point>> partLib = new HashMap<String, Consumer<Point>>();
-		partLib.put("U", (Point x) -> gameLoader.addWallAbove(x));
-		partLib.put("L", (Point x) -> gameLoader.addWallLeft(x));
-		partLib.put("T", (Point x) -> gameLoader.addTheseus(x));
-		partLib.put("M", (Point x) -> gameLoader.addMinotaur(x));
-		partLib.put("E", (Point x) -> gameLoader.addExit(x));
-		
-		for (String key : partLib.keySet()) {
-		    partLib.get(key).accept(where);;
-		}
-		/* TEST THIS CODE BLOCK */
-		
-		// T
-		//Point where = this.parseCoordinates(level.get("T"));
-		//gameLoader.addTheseus(where);
-		
-		// M
-		String[] minotaurCoords = level.get("M");
-		int mX = Integer.parseInt(minotaurCoords[0]);
-		int mY = Integer.parseInt(minotaurCoords[1]);
-		gameLoader.addMinotaur(new Position(mX, mY));
-		
-		// E
-		String[] exitCoords = level.get("E");
-		int eX = Integer.parseInt(exitCoords[0]);
-		String coords = exitCoords[1];
-		String sub = coords.substring(0, 1);
-		int eY = Integer.parseInt(sub);
-		gameLoader.addExit(new Position(eX, eY));
-		
+		this.loader.load(gameLoader, filename);
 		
 		/* Tests */
+		System.out.println("> walls above:");
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				String wall = gameSaver.whatsAbove(new Position(j, i)).toString();
-				row += wall + " ";
+				Wall wall = gameSaver.whatsAbove(new Position(j, i));
+				if (wall == Wall.SOMETHING) {
+					row += "^- ";
+				} else {
+					row += " - ";
+				}
 			}
-			view.display(row);
+			System.out.println(row);
 		}
+		System.out.println();
+		
+		System.out.println("> walls left:");
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				String wall = gameSaver.whatsLeft(new Position(j, i)).toString();
-				row += wall + " ";
+				Wall wall = gameSaver.whatsLeft(new Position(j, i));
+				if (wall == Wall.SOMETHING) {
+					row += "|- ";
+				} else {
+					row += " - ";
+				}
+				
 			}
-			view.display(row);
+			System.out.println(row);
 		}
+		System.out.println();
+		
+		System.out.println("> theseusAt:");
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
 				Point here = new Position(j, i);
 				if (gameSaver.wheresTheseus().across() == here.across()
 						&& gameSaver.wheresTheseus().down() == here.down()) {
-					row += "T ";
+					row += " T ";
 				} else {
-					row += "  ";
+					row += " - ";
 				}
 			}
-			view.display(row);
+			System.out.println(row);
 		}
+		System.out.println();
+		
+		System.out.println("> minotaurAt:");
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
 				Point here = new Position(j, i);
 				if (gameSaver.wheresMinotaur().across() == here.across()
 						&& gameSaver.wheresMinotaur().down() == here.down()) {
-					row += "M ";
+					row += " M ";
 				} else {
-					row += "  ";
+					row += " - ";
 				}
 			}
-			view.display(row);
+			System.out.println(row);
 		}
+		System.out.println();
+		
+		System.out.println("> exitAt:");
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
 				Point here = new Position(j, i);
 				if (gameSaver.wheresExit().across() == here.across()
 						&& gameSaver.wheresExit().down() == here.down()) {
-					row += "E ";
+					row += " E ";
 				} else {
-					row += "  ";
+					row += " - ";
 				}
 			}
-			view.display(row);
+			System.out.println(row);
 		}
 		
 		/* SAVE */
-//		String newLevel = "level01.txt";
-//		saver.save(gameSaver, newLevel);
-		
+		String newLevel = "level01.txt";
+		saver.save(gameSaver, newLevel);
 	}
 }

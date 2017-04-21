@@ -10,10 +10,14 @@ public class GameTests {
 	public static Playable game;
 	public static Loadable gameLoader;
 	public static Saveable gameSaver;
+	public static Loader loader;
+	public static Saver saver;
 	
 	@Before // Run before every test
 	public void setUp() {
-		game = new Game();
+		loader = new FileLoader();
+		saver = new FileSaver();
+		game = new Game(loader, saver);
 		gameLoader = (Loadable)game;
 		gameSaver = (Saveable)game;
 		
@@ -1782,4 +1786,66 @@ public class GameTests {
 		
 		game.findObject(Actor.THESEUS, "character");
 	}*/
+	
+	/*
+	 * Load Tests
+	 */
+	
+	@Test
+	public void load_level_mPos_correct() {
+		Loader loader = new FileLoader();
+		Saver saver = new FileSaver();
+		Game game = new Game(loader, saver);
+		
+		Loadable gameLoader = (Loadable)game;
+		Saveable gameSaver = (Saveable)game;
+		
+		loader.load(gameLoader, "level.txt");
+		
+		// "U=xxxo,oxox,oxox,xxxo;L=xxxo,oooo,oxoo,xoxo;M=01,0;T=1,2;E=3,1:"
+		Point expected = new Position(1, 0);
+		Point actual = gameSaver.wheresMinotaur();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	@Test
+	public void load_level_tPos_correct() {
+		Loader loader = new FileLoader();
+		Saver saver = new FileSaver();
+		Game game = new Game(loader, saver);
+		
+		Loadable gameLoader = (Loadable)game;
+		Saveable gameSaver = (Saveable)game;
+		
+		loader.load(gameLoader, "level.txt");
+		
+		// "U=xxxo,oxox,oxox,xxxo;L=xxxo,oooo,oxoo,xoxo;M=01,0;T=1,2;E=3,1:"
+		Point expected = new Position(1, 2);
+		Point actual = gameSaver.wheresTheseus();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
+	
+	@Test
+	public void load_level_ePos_correct() {
+		Loader loader = new FileLoader();
+		Saver saver = new FileSaver();
+		Game game = new Game(loader, saver);
+		
+		Loadable gameLoader = (Loadable)game;
+		Saveable gameSaver = (Saveable)game;
+		
+		
+		loader.load(gameLoader, "level.txt");
+		
+		// "U=xxxo,oxox,oxox,xxxo;L=xxxo,oooo,oxoo,xoxo;M=01,0;T=1,2;E=3,1:"
+		Point expected = new Position(3, 1);
+		Point actual = gameSaver.wheresExit();
+		
+		assertEquals(expected.across(), actual.across());
+		assertEquals(expected.down(), actual.down());
+	}
 }
