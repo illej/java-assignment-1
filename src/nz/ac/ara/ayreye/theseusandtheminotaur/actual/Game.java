@@ -276,15 +276,4 @@ public class Game implements Playable, Loadable, Saveable {
 		}
 	}
 
-	/*
-	 * NO IDEA WHATS GOING ON ANYMORE
-	 */
-	
-	public void load() {
-		// TODO: move to constructor!!!
-		Loader loadModel = new FileLoader();
-		String file = "file.txt";
-		String result = loadModel.load(file);
-		System.out.println(result);
-	}
 }
