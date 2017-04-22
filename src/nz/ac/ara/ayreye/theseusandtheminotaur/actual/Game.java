@@ -9,8 +9,8 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	private Saver saver;
 	
 	private List<List<Cell>> level = new ArrayList<List<Cell>>();
-	private int width = 0;
-	private int depth = 0;
+	private int width;
+	private int depth;
 	
 	public Game(Loader loader, Saver saver) {
 		this.loader = loader; //new FileLoader(/*this*/);
@@ -40,12 +40,14 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	}
 
 	private void build() {
-		for (int i = 0; i < this.depth; i++) {
-			List<Cell> row = new ArrayList<Cell>();
-			for (int j = 0; j < this.width; j++) {
-				row.add(new Cell());
+		if (level.isEmpty()) {
+			for (int i = 0; i < this.depth; i++) {
+				List<Cell> row = new ArrayList<Cell>();
+				for (int j = 0; j < this.width; j++) {
+					row.add(new Cell());
+				}
+				level.add(row);
 			}
-			level.add(row);
 		}
 	}
 
