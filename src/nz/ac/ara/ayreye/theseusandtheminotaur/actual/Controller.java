@@ -1,10 +1,5 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-
 public class Controller {
 
 	private Playable gamePlayer;
@@ -29,24 +24,6 @@ public class Controller {
 		this.view = view;
 	}
 	
-	private Runnable partLib(String key, Point where) {
-		
-		Map<String, Runnable> partLib = new HashMap<String, Runnable>();
-		partLib.put("U", () -> gameLoader.addWallAbove(where));
-		partLib.put("L", () -> gameLoader.addWallLeft(where));
-		partLib.put("T", () -> gameLoader.addTheseus(where));
-		partLib.put("M", () -> gameLoader.addMinotaur(where));
-		partLib.put("E", () -> gameLoader.addExit(where));
-		
-		return partLib.get(key);
-	}
-	
-	private Point parseCoordinates(String[] value) {
-		int x = Integer.parseInt(value[0]);
-		int y = Integer.parseInt(value[1]);
-		return new Position(x, y);
-	}
-	
 	public void run() {
 		
 		// Load file into a hashmap
@@ -58,7 +35,7 @@ public class Controller {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Wall wall = gameSaver.whatsAbove(new Position(j, i));
+				Wall wall = gameSaver.whatsAbove(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					row += "^- ";
 				} else {
@@ -73,7 +50,7 @@ public class Controller {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Wall wall = gameSaver.whatsLeft(new Position(j, i));
+				Wall wall = gameSaver.whatsLeft(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					row += "|- ";
 				} else {
@@ -89,7 +66,7 @@ public class Controller {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Point here = new Position(j, i);
+				Point here = new Pointer(j, i);
 				if (gameSaver.wheresTheseus().across() == here.across()
 						&& gameSaver.wheresTheseus().down() == here.down()) {
 					row += " T ";
@@ -105,7 +82,7 @@ public class Controller {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Point here = new Position(j, i);
+				Point here = new Pointer(j, i);
 				if (gameSaver.wheresMinotaur().across() == here.across()
 						&& gameSaver.wheresMinotaur().down() == here.down()) {
 					row += " M ";
@@ -121,7 +98,7 @@ public class Controller {
 		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
 			String row = "";
 			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Point here = new Position(j, i);
+				Point here = new Pointer(j, i);
 				if (gameSaver.wheresExit().across() == here.across()
 						&& gameSaver.wheresExit().down() == here.down()) {
 					row += " E ";

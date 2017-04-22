@@ -1,11 +1,11 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
-public class Position implements Point {
+public class Pointer implements Point {
 	
 	private int x;
 	private int y;
 	
-	public Position(int x, int y) {
+	public Pointer(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

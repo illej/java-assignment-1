@@ -6,12 +6,6 @@ import java.io.IOException;
 
 public class FileSaver implements Saver {
 
-	//private Saveable gameSaver;
-	
-//	public FileSaver(Saveable gameSaver) {
-//		this.gameSaver = gameSaver;
-//	}
-	
 	@Override
 	public void save(Saveable gameSaver) {
 		// TODO Auto-generated method stub
@@ -31,7 +25,7 @@ public class FileSaver implements Saver {
 		str.append("U=");
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < width; j++) {
-				Wall wall = gameSaver.whatsAbove(new Position(j, i));
+				Wall wall = gameSaver.whatsAbove(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					str.append("x");
 				} else {
@@ -44,7 +38,7 @@ public class FileSaver implements Saver {
 		str.append("L=");
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < width; j++) {
-				Wall wall = gameSaver.whatsLeft(new Position(j, i));
+				Wall wall = gameSaver.whatsLeft(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					str.append("x");
 				} else {

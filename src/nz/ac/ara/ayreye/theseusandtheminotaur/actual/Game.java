@@ -2,8 +2,6 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-//import static org.junit.Assert.*;
 
 public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
@@ -60,7 +58,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		
 		for (int i = 0; i < this.depth; i++) {
 			for (int j = 0; j < this.width; j++) {
-				Point here = new Position(j, i);
+				Point here = new Pointer(j, i);
 				if (this.getCell(here).get(key) == object) {
 					result = here;
 					points.add(result);
@@ -239,7 +237,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	public void moveTheseus(Direction direction) {
 		Point current = this.wheresTheseus();
 		Point destination = 
-				new Position(
+				new Pointer(
 					current.across() + direction.xAdjust,
 					current.down() + direction.yAdjust);
 
@@ -266,7 +264,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 					&& !this.isBlocked(
 							horizDir, 
 							minotaurAt,
-							destination = new Position(
+							destination = new Pointer(
 									minotaurAt.across() + horizDir.xAdjust,
 									minotaurAt.down() + horizDir.yAdjust))) {
 				this.setCellInfo(minotaurAt, Part.NONE, "character");
@@ -275,7 +273,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 					&& !this.isBlocked(
 							vertDir, 
 							minotaurAt,
-							destination = new Position(
+							destination = new Pointer(
 									minotaurAt.across() + vertDir.xAdjust,
 									minotaurAt.down() + vertDir.yAdjust))) {
 				this.setCellInfo(minotaurAt, Part.NONE, "character");
