@@ -15,9 +15,8 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	private int depth = 0;
 	
 	public Game(Loader loader, Saver saver) {
-		// Could still receive these from the controller?
-		this.loader = new FileLoader(/*this*/);
-		this.saver = new FileSaver(/*this*/);
+		this.loader = loader; //new FileLoader(/*this*/);
+		this.saver = saver; //new FileSaver(/*this*/);
 	}
 
 	/*

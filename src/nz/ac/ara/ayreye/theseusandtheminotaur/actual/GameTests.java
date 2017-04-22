@@ -1793,12 +1793,12 @@ public class GameTests {
 	
 	@Test
 	public void load_level_mPos_correct() {
-		Loader loader = new FileLoader();
-		Saver saver = new FileSaver();
-		Game game = new Game(loader, saver);
-		
-		Loadable gameLoader = (Loadable)game;
-		Saveable gameSaver = (Saveable)game;
+		Game game = new Game(new FileLoader(), new FileSaver());
+		//Playable gamePlayer = (Playable) game;
+		Loadable gameLoader = (Loadable) game;
+		Saveable gameSaver = (Saveable) game;
+		Loader loader = (Loader) game;
+		//Saver saver = (Saver) game;
 		
 		loader.load(gameLoader, "level.txt");
 		
@@ -1812,12 +1812,12 @@ public class GameTests {
 	
 	@Test
 	public void load_level_tPos_correct() {
-		Loader loader = new FileLoader();
-		Saver saver = new FileSaver();
-		Game game = new Game(loader, saver);
-		
-		Loadable gameLoader = (Loadable)game;
-		Saveable gameSaver = (Saveable)game;
+		Game game = new Game(new FileLoader(), new FileSaver());
+		//Playable gamePlayer = (Playable) game;
+		Loadable gameLoader = (Loadable) game;
+		Saveable gameSaver = (Saveable) game;
+		Loader loader = (Loader) game;
+		//Saver saver = (Saver) game;
 		
 		loader.load(gameLoader, "level.txt");
 		
@@ -1831,13 +1831,12 @@ public class GameTests {
 	
 	@Test
 	public void load_level_ePos_correct() {
-		Loader loader = new FileLoader();
-		Saver saver = new FileSaver();
-		Game game = new Game(loader, saver);
-		
-		Loadable gameLoader = (Loadable)game;
-		Saveable gameSaver = (Saveable)game;
-		
+		Game game = new Game(new FileLoader(), new FileSaver());
+		//Playable gamePlayer = (Playable) game;
+		Loadable gameLoader = (Loadable) game;
+		Saveable gameSaver = (Saveable) game;
+		Loader loader = (Loader) game;
+		//Saver saver = (Saver) game;
 		
 		loader.load(gameLoader, "level.txt");
 		

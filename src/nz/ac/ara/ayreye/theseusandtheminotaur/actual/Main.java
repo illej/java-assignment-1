@@ -4,35 +4,25 @@ public class Main {
 
 	public static void main(String[] args) {
 
-//		/* <<Models>> */
-//		Playable game = new Game();
-//		Loadable gameLoader = (Loadable)game;
-//		Saveable gameSaver = (Saveable)game;
-//		
-//		Loader loader = new FileLoader(/*gameLoader*/);
-//		Saver saver = new FileSaver(/*gameSaver*/);
-//		
-//		/* <<Views>> */
-//		View view = new ConsoleView();
-//		
-//		/* <<Controller>> */
-//		new Controller(game, gameLoader, gameSaver, loader, saver, view).run();
-		
-		
 		/* <<Models>> */
-		Loader loader = new FileLoader();
-		Saver saver = new FileSaver();
-		Game game = new Game(loader, saver);
-		
+		Game game = new Game(new FileLoader(), new FileSaver());
 		Playable gamePlayer = (Playable) game;
 		Loadable gameLoader = (Loadable) game;
 		Saveable gameSaver = (Saveable) game;
+		Loader loader = (Loader) game;
+		Saver saver = (Saver) game;
 		
-		/* <<Views>> */
+		/* <<View>> */
 		View view = new ConsoleView();
 		
 		/* <<Controller>> */
-		new Controller(gamePlayer, gameLoader, gameSaver, loader, saver, view).run();
+		new Controller(
+				gamePlayer,
+				gameLoader,
+				gameSaver,
+				loader,
+				saver,
+				view).run();
 	}
 
 }
