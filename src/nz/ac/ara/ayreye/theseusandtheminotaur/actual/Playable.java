@@ -2,6 +2,7 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 
 public interface Playable {
+	
 	void moveTheseus(Direction direction);
 	void moveMinotaur();
 	
@@ -12,4 +13,5 @@ public interface Playable {
 //	boolean isBlocked(Direction dir, Point cur, Point dest);
 //	public Point findObject(Object object, String flag);
 //	public Direction findDirection(Point theseus, Point minotaur, String flag);
+	
 }

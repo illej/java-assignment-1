@@ -13,13 +13,18 @@ public class FileSaver implements Saver {
 
 	@Override
 	public void save(Saveable saveable, String fileName) {
+		this.save(saveable, fileName, "default-level");
+	}
+
+	@Override
+	public void save(Saveable saveable, String fileName, String levelName) {
 		int width = saveable.getWidthAcross();
 		int depth = saveable.getDepthDown();
 		String level = "";
 		StringBuilder str = new StringBuilder();
 		
-		// TODO: condense!!!
-		// and maybe extract to new method 'builerOrSeomthing'?
+		// TODO: Template Method
+
 		// build 'U'
 		str.append("U=");
 		for (int i = 0; i < depth; i++) {
@@ -63,7 +68,8 @@ public class FileSaver implements Saver {
 		// build 'E'
 		Point exitAt = saveable.wheresExit();
 		str.append("E=" + exitAt.across() + "," + exitAt.down() + ":");
-		// TODO: levelname?
+		// build levelname
+		//str.append(levelName);
 		
 		level = str.toString();
 		
@@ -73,12 +79,6 @@ public class FileSaver implements Saver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void save(Saveable saveable, String fileName, String levelName) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -39,9 +39,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	}
 
 	private void build() {
-		System.out.println("trying to build..");
 		if (level.isEmpty()) {
-			System.out.println("building..");
 			for (int i = 0; i < this.depth; i++) {
 				List<Cell> row = new ArrayList<Cell>();
 				for (int j = 0; j < this.width; j++) {
@@ -52,9 +50,6 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		}	
 	}
 
-	/*
-	 * Currently only finds first occurrence.. TODO: ensure only ONE occurrence?
-	 */
 	private Point findObject(Object object, String key) {
 		Point result = null;
 		List<Point> points = new ArrayList<Point>();
@@ -73,7 +68,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		if (points.size() > 1) {
 			System.out.println("Too many " + object + " in LEVEL.");
 		}
-		
+		// returns last occurrence
 		return result;
 	}
 
@@ -171,7 +166,6 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		}
 		
 		this.width = widthAcross;
-
 		if (this.depth > 0
 				&& this.width > 0) {
 			this.build();
@@ -187,7 +181,6 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		} 
 		
 		this.depth = depthDown;
-		
 		if (this.width > 0
 				&& this.depth > 0) {
 			this.build();
@@ -208,39 +201,35 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
 	@Override
 	public void addTheseus(Point where) {
-		Point check = this.findObject(Part.THESEUS, "character"); // HOOK???
+		Point check = this.findObject(Part.THESEUS, "character");
 		if (check != null) {
 			this.setCellInfo(check, Part.NONE, "character");
 			System.out.println("found a theseus, but cloned and killed the original.");
-			// TODO: throw new IllegalArgumentException();
 		}
 
-		this.setCellInfo(where, Part.THESEUS, "character"); // HOOK???
-		
+		this.setCellInfo(where, Part.THESEUS, "character");
 	}
 
 	@Override
 	public void addMinotaur(Point where) {
-		Point check = this.findObject(Part.MINOTAUR, "character"); // HOOK???
+		Point check = this.findObject(Part.MINOTAUR, "character");
 		if (check != null) {
 			this.setCellInfo(check, Part.NONE, "character");
 			System.out.println("found a minotaur, but cloned and killed the original.");
-			// TODO: throw new IllegalArgumentException();
 		}
 		
-		this.setCellInfo(where, Part.MINOTAUR, "character"); // HOOK???
+		this.setCellInfo(where, Part.MINOTAUR, "character");
 	}
 
 	@Override
 	public void addExit(Point where) {
-		Point check = this.findObject(Part.EXIT, "objective"); // HOOK???
+		Point check = this.findObject(Part.EXIT, "objective");
 		if (check != null) {
 			this.setCellInfo(check, Part.NONE, "objective");
 			System.out.println("found an exit, but walled it off and built another.");
-			// TODO: throw new IllegalArgumentException();
 		}
 		
-		this.setCellInfo(where, Part.EXIT, "objective"); // HOOK???
+		this.setCellInfo(where, Part.EXIT, "objective");
 	}
 
 	/*
@@ -322,8 +311,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
 	@Override
 	public void save(Saveable saveable, String fileName, String levelName) {
-		// TODO Auto-generated method stub
-		
+		this.saver.save(saveable, fileName, levelName);
 	}
 
 }

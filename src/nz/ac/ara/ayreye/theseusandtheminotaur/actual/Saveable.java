@@ -1,6 +1,7 @@
 package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public interface Saveable {
+	
 	int getWidthAcross();
 	int getDepthDown();
 	Wall whatsAbove(Point where);
@@ -8,4 +9,5 @@ public interface Saveable {
 	Point wheresTheseus();
 	Point wheresMinotaur();
 	Point wheresExit();
+	
 }

@@ -38,7 +38,6 @@ public class FileLoader implements Loader {
 		    System.out.println(key + " : " + Arrays.toString(value));
 		}
 		System.out.println();
-		/**/
 		
 		return map;
 	}
