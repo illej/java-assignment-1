@@ -79,15 +79,15 @@ public class FileLoader implements Loader {
 	 */
 	
 	@Override
-	public void load(Loadable gameLoader, String filename) {
+	public void load(Loadable loadable, String filename) {
 		Map<String, Object> levelInfo = this.loadFile(filename);		
 		
 		List<Builder> builders = new ArrayList<Builder>(Arrays.asList(
-				new WallAboveBuilder(gameLoader, levelInfo),
-				new WallLeftBuilder(gameLoader, levelInfo),
-				new TheseusPartBuilder(gameLoader, levelInfo),
-				new MinotaurPartBuilder(gameLoader, levelInfo),
-				new ExitPartBuilder(gameLoader, levelInfo)));
+				new WallAboveBuilder(loadable, levelInfo),
+				new WallLeftBuilder(loadable, levelInfo),
+				new TheseusPartBuilder(loadable, levelInfo),
+				new MinotaurPartBuilder(loadable, levelInfo),
+				new ExitPartBuilder(loadable, levelInfo)));
 		
 		for (Builder builder : builders) {
 			builder.build();

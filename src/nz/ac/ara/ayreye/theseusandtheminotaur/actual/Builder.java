@@ -6,7 +6,7 @@ public abstract class Builder {
 
 	protected Loadable gameLoadable;
 	protected Map<String, Object> map;
-	protected String[] rows;
+	protected Point point;
 	
 	public Builder(Loadable gameLoadable, Map<String, Object> map) {
 		this.gameLoadable = gameLoadable;
@@ -23,6 +23,8 @@ public abstract class Builder {
 		int y = Integer.parseInt((String) value[1]);
 		return new Pointer(x, y);
 	}
+	
+	protected abstract String getKey();
 	
 	protected abstract void setup();
 	

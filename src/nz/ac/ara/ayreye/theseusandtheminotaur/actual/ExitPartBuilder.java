@@ -14,8 +14,8 @@ public class ExitPartBuilder extends PartBuilder {
 	}
 	
 	@Override
-	public void execute() {
-		super.gameLoadable.addExit(super.coordinates);
+	protected void execute() {
+		super.gameLoadable.addExit(super.point);
 	}
 
 }

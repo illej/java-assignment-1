@@ -7,14 +7,13 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
 	private Loader loader;
 	private Saver saver;
-	
 	private List<List<Cell>> level = new ArrayList<List<Cell>>();
-	private int width;
-	private int depth;
+	private int width = 0;
+	private int depth = 0;
 	
 	public Game(Loader loader, Saver saver) {
-		this.loader = loader; //new FileLoader(/*this*/);
-		this.saver = saver; //new FileSaver(/*this*/);
+		this.loader = loader;
+		this.saver = saver;
 	}
 
 	/*
@@ -40,7 +39,9 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	}
 
 	private void build() {
+		System.out.println("trying to build..");
 		if (level.isEmpty()) {
+			System.out.println("building..");
 			for (int i = 0; i < this.depth; i++) {
 				List<Cell> row = new ArrayList<Cell>();
 				for (int j = 0; j < this.width; j++) {
@@ -48,13 +49,13 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 				}
 				level.add(row);
 			}
-		}
+		}	
 	}
 
 	/*
 	 * Currently only finds first occurrence.. TODO: ensure only ONE occurrence?
 	 */
-	public Point findObject(Object object, String key) {
+	private Point findObject(Object object, String key) {
 		Point result = null;
 		List<Point> points = new ArrayList<Point>();
 		
@@ -76,9 +77,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		return result;
 	}
 
-	// [8/8] Tests passing
-	// TODO: Polymorph?
-	public boolean isBlocked(Direction direction, Point current, Point destination) {
+	private boolean isBlocked(Direction direction, Point current, Point destination) {
 		boolean result = false;
 
 		if (direction == Direction.LEFT) {
@@ -102,9 +101,7 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 		return result;
 	}
 
-	// [8/8] Tests passing
-	// TODO: Polymorph?
-	public Direction findDirection(Point theseus, Point minotaur, String flag) {
+	private Direction findDirection(Point theseus, Point minotaur, String flag) {
 		Direction result = null;
 
 		if (flag == "horizontal") {
@@ -169,24 +166,32 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
 	@Override
 	public int setWidthAcross(int widthAcross) {
+		if (widthAcross < 4) {
+			throw new IllegalArgumentException();
+		}
+		
 		this.width = widthAcross;
 
 		if (this.depth > 0
 				&& this.width > 0) {
 			this.build();
-		} // TODO: else throw exception?
+		}
 
 		return this.width; // ?
 	}
 
 	@Override
 	public int setDepthDown(int depthDown) {
+		if (depthDown < 4) {
+			throw new IllegalArgumentException();
+		} 
+		
 		this.depth = depthDown;
-
+		
 		if (this.width > 0
 				&& this.depth > 0) {
 			this.build();
-		} // TODO: else throw exception
+		}
 		
 		return this.depth; // ?
 	}
@@ -203,38 +208,45 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 
 	@Override
 	public void addTheseus(Point where) {
-		/* 
-		 * TODO: Add error checking to ensure only 1 theseus 
-		 * exists in the level at all times.
-		 */
-		
-		Point check = this.findObject(Part.THESEUS, "character");
+		Point check = this.findObject(Part.THESEUS, "character"); // HOOK???
 		if (check != null) {
 			this.setCellInfo(check, Part.NONE, "character");
 			System.out.println("found a theseus, but cloned and killed the original.");
-			// TODO: throw new Exception();
+			// TODO: throw new IllegalArgumentException();
 		}
+
+		this.setCellInfo(where, Part.THESEUS, "character"); // HOOK???
 		
-		this.setCellInfo(where, Part.THESEUS, "character");
 	}
 
 	@Override
 	public void addMinotaur(Point where) {
-		this.setCellInfo(where, Part.MINOTAUR, "character");
+		Point check = this.findObject(Part.MINOTAUR, "character"); // HOOK???
+		if (check != null) {
+			this.setCellInfo(check, Part.NONE, "character");
+			System.out.println("found a minotaur, but cloned and killed the original.");
+			// TODO: throw new IllegalArgumentException();
+		}
+		
+		this.setCellInfo(where, Part.MINOTAUR, "character"); // HOOK???
 	}
 
 	@Override
 	public void addExit(Point where) {
-		this.setCellInfo(where, Part.EXIT, "objective");
+		Point check = this.findObject(Part.EXIT, "objective"); // HOOK???
+		if (check != null) {
+			this.setCellInfo(check, Part.NONE, "objective");
+			System.out.println("found an exit, but walled it off and built another.");
+			// TODO: throw new IllegalArgumentException();
+		}
+		
+		this.setCellInfo(where, Part.EXIT, "objective"); // HOOK???
 	}
 
 	/*
 	 * <<Interface>> Playable
 	 */
 
-	/*
-	 * [20/20] Tests passing
-	 */
 	@Override
 	public void moveTheseus(Direction direction) {
 		Point current = this.wheresTheseus();
@@ -290,8 +302,8 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	 */
 	
 	@Override
-	public void load(Loadable gameLoader, String filename) {
-		this.loader.load(gameLoader, filename);
+	public void load(Loadable loadable, String filename) {
+		this.loader.load(loadable, filename);
 	}
 
 	/*
@@ -299,18 +311,17 @@ public class Game implements Playable, Loadable, Saveable, Saver, Loader {
 	 */
 
 	@Override
-	public void save(Saveable gameSaver) {
-		// TODO Auto-generated method stub
-		
+	public void save(Saveable saveable) {
+		this.saver.save(saveable);
 	}
 
 	@Override
-	public void save(Saveable gameSaver, String fileName) {
-		this.saver.save(gameSaver, fileName);
+	public void save(Saveable saveable, String fileName) {
+		this.saver.save(saveable, fileName);
 	}
 
 	@Override
-	public void save(Saveable gameSaver, String fileName, String levelName) {
+	public void save(Saveable saveable, String fileName, String levelName) {
 		// TODO Auto-generated method stub
 		
 	}

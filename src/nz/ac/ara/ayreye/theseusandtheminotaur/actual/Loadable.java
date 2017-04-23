@@ -5,7 +5,7 @@ public interface Loadable {
 	int setDepthDown(int depthDown);
 	void addWallAbove(Point where);
 	void addWallLeft(Point where);
-	void addTheseus(Point where) /*throws Exception*/;
+	void addTheseus(Point where);
 	void addMinotaur(Point where);
 	void addExit(Point where);
 }

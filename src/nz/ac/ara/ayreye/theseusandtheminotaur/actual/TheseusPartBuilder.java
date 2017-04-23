@@ -15,7 +15,7 @@ public class TheseusPartBuilder extends PartBuilder {
 	
 	@Override
 	protected void execute() {
-		super.gameLoadable.addTheseus(super.coordinates);
+		super.gameLoadable.addTheseus(super.point);
 	}
 
 }

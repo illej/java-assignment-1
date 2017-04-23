@@ -6,9 +6,9 @@ public class Main {
 
 		/* <<Models>> */
 		Game game = new Game(new FileLoader(), new FileSaver());
-		Playable gamePlayer = (Playable) game;
-		Loadable gameLoader = (Loadable) game;
-		Saveable gameSaver = (Saveable) game;
+		Playable playable = (Playable) game;
+		Loadable loadable = (Loadable) game;
+		Saveable saveable = (Saveable) game;
 		Loader loader = (Loader) game;
 		Saver saver = (Saver) game;
 		
@@ -17,9 +17,9 @@ public class Main {
 		
 		/* <<Controller>> */
 		new Controller(
-				gamePlayer,
-				gameLoader,
-				gameSaver,
+				playable,
+				loadable,
+				saveable,
 				loader,
 				saver,
 				view).run();

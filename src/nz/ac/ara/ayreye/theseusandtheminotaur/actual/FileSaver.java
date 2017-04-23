@@ -7,15 +7,14 @@ import java.io.IOException;
 public class FileSaver implements Saver {
 
 	@Override
-	public void save(Saveable gameSaver) {
-		// TODO Auto-generated method stub
-		
+	public void save(Saveable saveable) {
+		this.save(saveable, "default.txt");
 	}
 
 	@Override
-	public void save(Saveable gameSaver, String fileName) {
-		int width = gameSaver.getWidthAcross();
-		int depth = gameSaver.getDepthDown();
+	public void save(Saveable saveable, String fileName) {
+		int width = saveable.getWidthAcross();
+		int depth = saveable.getDepthDown();
 		String level = "";
 		StringBuilder str = new StringBuilder();
 		
@@ -25,36 +24,44 @@ public class FileSaver implements Saver {
 		str.append("U=");
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < width; j++) {
-				Wall wall = gameSaver.whatsAbove(new Pointer(j, i));
+				Wall wall = saveable.whatsAbove(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					str.append("x");
 				} else {
 					str.append("o");
 				}
 			}
-			str.append(","); // TODO: don't append after last
+			if (i == depth - 1) {
+				str.append(";");
+			} else {
+				str.append(",");
+			}
 		}
 		// build 'L'
 		str.append("L=");
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < width; j++) {
-				Wall wall = gameSaver.whatsLeft(new Pointer(j, i));
+				Wall wall = saveable.whatsLeft(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					str.append("x");
 				} else {
 					str.append("o");
 				}
 			}
-			str.append(","); // TODO: if last, append(";");
+			if (i == depth - 1) {
+				str.append(";");
+			} else {
+				str.append(",");
+			}
 		}
 		// build 'M'
-		Point minotaurAt = gameSaver.wheresMinotaur();
+		Point minotaurAt = saveable.wheresMinotaur();
 		str.append("M=" + minotaurAt.across() + "," + minotaurAt.down() + ";");
 		// build 'T'
-		Point theseusAt = gameSaver.wheresTheseus();
+		Point theseusAt = saveable.wheresTheseus();
 		str.append("T=" + theseusAt.across() + "," + theseusAt.down() + ";");
 		// build 'E'
-		Point exitAt = gameSaver.wheresExit();
+		Point exitAt = saveable.wheresExit();
 		str.append("E=" + exitAt.across() + "," + exitAt.down() + ":");
 		// TODO: levelname?
 		
@@ -69,7 +76,7 @@ public class FileSaver implements Saver {
 	}
 
 	@Override
-	public void save(Saveable gameSaver, String fileName, String levelName) {
+	public void save(Saveable saveable, String fileName, String levelName) {
 		// TODO Auto-generated method stub
 		
 	}

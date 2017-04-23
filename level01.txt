@@ -1,1 +1,1 @@
-U=xxxo,oxox,oxox,xxxo,L=xxxo,oooo,oxoo,xoxo,M=1,0;T=1,2;E=3,1:
+U=xoooox,ooxooo,oooooo,oooxoo,oooooo,oooxoo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo;L=xooooo,oooooo,oooooo,oxooxo,ooooox,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo,oooooo;M=0,1;T=2,2;E=1,0:

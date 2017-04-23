@@ -15,7 +15,7 @@ public class MinotaurPartBuilder extends PartBuilder {
 
 	@Override
 	protected void execute() {
-		super.gameLoadable.addMinotaur(super.coordinates);
+		super.gameLoadable.addMinotaur(super.point);
 	}
 
 }

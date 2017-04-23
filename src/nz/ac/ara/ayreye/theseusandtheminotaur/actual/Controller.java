@@ -2,23 +2,23 @@ package nz.ac.ara.ayreye.theseusandtheminotaur.actual;
 
 public class Controller {
 
-	private Playable gamePlayer;
-	private Loadable gameLoader;
-	private Saveable gameSaver;
+	private Playable playable;
+	private Loadable loadable;
+	private Saveable saveable;
 	private Loader loader;
 	private Saver saver;
 	private View view;
 	
 	public Controller(
-			Playable gamePlayer, 
-			Loadable gameLoader, 
-			Saveable gameSaver, 
+			Playable playable, 
+			Loadable loadable, 
+			Saveable saveable, 
 			Loader loader,
 			Saver saver,
 			View view) {
-		this.gamePlayer = gamePlayer;
-		this.gameLoader = gameLoader;
-		this.gameSaver = gameSaver;
+		this.playable = playable;
+		this.loadable = loadable;
+		this.saveable = saveable;
 		this.loader = loader;
 		this.saver = saver;
 		this.view = view;
@@ -26,16 +26,15 @@ public class Controller {
 	
 	public void run() {
 		
-		// Load file into a hashmap
-		String filename = "level.txt"; // HARDCODED
-		this.loader.load(gameLoader, filename);
+		String filename = "hadnmande01.txt"; // HARDCODED
+		this.loader.load(loadable, filename);
 		
 		/* Tests */
 		System.out.println("> walls above:");
-		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+		for (int i = 0; i < saveable.getDepthDown(); i++) {
 			String row = "";
-			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Wall wall = gameSaver.whatsAbove(new Pointer(j, i));
+			for (int j = 0; j < saveable.getWidthAcross(); j++) {
+				Wall wall = saveable.whatsAbove(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					row += "^- ";
 				} else {
@@ -47,10 +46,10 @@ public class Controller {
 		System.out.println();
 		
 		System.out.println("> walls left:");
-		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+		for (int i = 0; i < saveable.getDepthDown(); i++) {
 			String row = "";
-			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
-				Wall wall = gameSaver.whatsLeft(new Pointer(j, i));
+			for (int j = 0; j < saveable.getWidthAcross(); j++) {
+				Wall wall = saveable.whatsLeft(new Pointer(j, i));
 				if (wall == Wall.SOMETHING) {
 					row += "|- ";
 				} else {
@@ -63,12 +62,12 @@ public class Controller {
 		System.out.println();
 		
 		System.out.println("> theseusAt:");
-		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+		for (int i = 0; i < saveable.getDepthDown(); i++) {
 			String row = "";
-			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
+			for (int j = 0; j < saveable.getWidthAcross(); j++) {
 				Point here = new Pointer(j, i);
-				if (gameSaver.wheresTheseus().across() == here.across()
-						&& gameSaver.wheresTheseus().down() == here.down()) {
+				if (saveable.wheresTheseus().across() == here.across()
+						&& saveable.wheresTheseus().down() == here.down()) {
 					row += " T ";
 				} else {
 					row += " - ";
@@ -79,12 +78,12 @@ public class Controller {
 		System.out.println();
 		
 		System.out.println("> minotaurAt:");
-		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+		for (int i = 0; i < saveable.getDepthDown(); i++) {
 			String row = "";
-			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
+			for (int j = 0; j < saveable.getWidthAcross(); j++) {
 				Point here = new Pointer(j, i);
-				if (gameSaver.wheresMinotaur().across() == here.across()
-						&& gameSaver.wheresMinotaur().down() == here.down()) {
+				if (saveable.wheresMinotaur().across() == here.across()
+						&& saveable.wheresMinotaur().down() == here.down()) {
 					row += " M ";
 				} else {
 					row += " - ";
@@ -95,12 +94,12 @@ public class Controller {
 		System.out.println();
 		
 		System.out.println("> exitAt:");
-		for (int i = 0; i < gameSaver.getDepthDown(); i++) {
+		for (int i = 0; i < saveable.getDepthDown(); i++) {
 			String row = "";
-			for (int j = 0; j < gameSaver.getWidthAcross(); j++) {
+			for (int j = 0; j < saveable.getWidthAcross(); j++) {
 				Point here = new Pointer(j, i);
-				if (gameSaver.wheresExit().across() == here.across()
-						&& gameSaver.wheresExit().down() == here.down()) {
+				if (saveable.wheresExit().across() == here.across()
+						&& saveable.wheresExit().down() == here.down()) {
 					row += " E ";
 				} else {
 					row += " - ";
@@ -110,7 +109,7 @@ public class Controller {
 		}
 		
 		/* SAVE */
-		String newLevel = "level01.txt";
-		saver.save(gameSaver, newLevel);
+//		String newLevel = "level01.txt";
+//		saver.save(saveable, newLevel);
 	}
 }
